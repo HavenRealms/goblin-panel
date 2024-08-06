@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3)j!n&-(lev#r^^8e^22f*$b!523y$f-ww2gt8i%tafwk2=r89'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -123,6 +123,7 @@ STATICFILES_DIRS = [
 
 # Login URL Settings
 LOGIN_URL = LOGOUT_REDIRECT_URL = "/auth/login/"
+handler404 = "serveradmin.admin_views.AdminDashboard404View"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

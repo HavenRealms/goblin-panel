@@ -1,5 +1,10 @@
 {% extends 'auth/base.html' %}
 
+{% block cover_image %}
+{% load static %}
+{% static 'img/auth/cover.png' %}
+{% endblock %}
+
 {% block page_content %}
         <form method="POST" action="">
 			{% csrf_token %}

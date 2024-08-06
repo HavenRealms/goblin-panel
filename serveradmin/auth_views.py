@@ -17,7 +17,7 @@ class AuthLoginView(LoggedOutRequiredMixin, TemplateView):
             return redirect(reverse('admin-dashboard-home'))
         else:
             return render(request, self.template_name, {
-                'page_title': 'Admin Login',
+                'page_title': 'Login',
                 'error': 'Invalid credentials'
             })
 
