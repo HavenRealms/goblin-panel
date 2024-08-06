@@ -11,7 +11,7 @@
 		</ol>
 	</nav>
 </div>
-<a href="#" class="float-end d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">Add Location <i class="fas fa-plus fa-sm text-white-50"></i></a>
+<a href="#" class="float-end d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" data-toggle="modal" data-target="#newLocationModal">Add Location <i class="fas fa-plus fa-sm text-white-50"></i></a>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
 <p class="p-1 mr-4 page-header">This allows you to organize and manage game servers across different geographical regions or data centers for optimized performance and low-latency connections.</p>
 </div>
@@ -38,4 +38,39 @@
 		{% endfor %}
 	</tbody>
 </table>
+
+<!-- Logout Modal-->
+    <div class="modal fade" id="newLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+			<form method="post" action="{% url 'admin-location-create' %}">
+				{% csrf_token %}
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add New Location</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						
+						<div class="form-group">
+							<label for="locationShortCode">Short Code</label>
+							<input type="text" class="form-control" id="locationShortCode" name="short_code" placeholder="Location Shortcode e.g. US">
+						</div>
+						 
+						<div class="form-group">
+							<label for="locationDescription">Description</label>
+							<input type="text" class="form-control" id="locationDescription" name="description" placeholder="Location Description e.g. US Server #1">
+						</div>
+						 
+					</div>
+					<div class="modal-footer">
+							<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+							<button class="btn btn-primary" type="submit">Add</a>
+					</div>
+				</div>
+			</form>
+        </div>
+    </div>
 {% endblock %}

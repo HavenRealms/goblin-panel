@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
+from django.http import HttpResponseBadRequest
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from .models import *
@@ -44,3 +46,24 @@ class AdminLocationDetailView(LoginRequiredMixin, TemplateView):
         context["user"] = self.request.user
         context["location"] = get_object_or_404(Location, id=self.kwargs["id"])
         return context
+
+
+class AdminLocationCreateView(View):
+    def post(self, request, *args, **kwargs):
+        # Get the POST data
+        short_code = request.POST.get('short_code')
+        description = request.POST.get('description')
+        print(request.POST)
+
+        # Check if required data is present
+        if not short_code or not description:
+            return HttpResponseBadRequest("Missing required fields.")
+
+        if short_code == "" or description == "":
+            redirect("admin-locations")
+
+        # Create and save the new Location instance
+        Location.objects.create(short_code=short_code, description=description)
+
+        # Redirect to the admin locations page
+        return redirect('admin-locations')
