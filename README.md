@@ -48,7 +48,7 @@ For detailed information on how to interact with the panel via APIs, please refe
 
 ## License
 
-This project is licensed under the GNPU v3 license - see the [LICENSE](https://github.com/HavenRealms/goblin-panel/blob/main/LICENSE "LICENSE") file for details.
+This project is licensed under the GPL v3 license - see the [LICENSE](https://github.com/HavenRealms/goblin-panel/blob/main/LICENSE "LICENSE") file for details.
 
 ## Contact
 For any questions or support, please open an issue on GitHub or open a support ticket via our [discord](https://discord.gg/wsB7bPxxGe "discord").
