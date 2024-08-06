@@ -128,3 +128,6 @@ LOGIN_URL = LOGOUT_REDIRECT_URL = "/auth/login/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# GOBLIN PANEL Settings
+VERSION = "DEV-0.0.1"
