@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', AdminDashboardView.as_view(), name="admin-dashboard-home"),
     path('admin/locations/', AdminLocationsView.as_view(), name="admin-locations"),
     path('admin/locations/view/<int:id>/', AdminLocationDetailView.as_view(), name='admin-location-detail'),
+    path('admin/locations/edit/<int:id>/', AdminLocationEditView.as_view(), name='admin-location-edit'),
     path('admin/locations/new/', AdminLocationCreateView.as_view(), name='admin-location-create'),
 
     path('auth/login/', AuthLoginView.as_view(), name="auth-login"),
