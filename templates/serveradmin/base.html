@@ -70,8 +70,9 @@
                     <span>Servers</span>
 				</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+			{% url 'admin-nodes' as url %}
+            <li class="nav-item {% if request.path == url %}active{% endif %}">
+                <a class="nav-link" href="{{ url }}">
                     <i class="fa-solid fa-city"></i>
                     <span>Nodes</span>
 				</a>

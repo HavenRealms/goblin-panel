@@ -7,3 +7,34 @@ class Location(models.Model):
 
     def __str__(self):
         return "(" + self.short_code + ") " + self.description
+
+
+import uuid
+from django.db import models
+
+class Node(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True)
+    location = models.ForeignKey('Location', on_delete=models.CASCADE)
+    fqdn = models.CharField(max_length=255)
+    ssl = models.BooleanField(default=True)
+    proxy = models.BooleanField(default=False)
+    memory = models.PositiveIntegerField(help_text="Memory in MB")
+    memory_overallocate = models.PositiveIntegerField(default=0, help_text="Memory over-allocation percentage")
+    disk = models.PositiveIntegerField(help_text="Disk space in MB")
+    disk_overallocate = models.PositiveIntegerField(default=0, help_text="Disk space over-allocation percentage")
+    daemon_token = models.CharField(max_length=255, unique=True, blank=True)
+    max_upload_size = models.PositiveIntegerField(default=100, help_text="Max upload size in MB")
+    public = models.BooleanField(default=False, help_text="Whether the node is publicly visible")
+
+    def save(self, *args, **kwargs):
+        if not self.daemon_token:
+            self.daemon_token = uuid.uuid4().hex
+        super().save(*args, **kwargs)
+
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

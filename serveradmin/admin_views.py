@@ -97,3 +97,14 @@ class AdminLocationCreateView(View):
 
         # Redirect to the admin locations page
         return redirect('admin-locations')
+
+class AdminNodesView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/nodes.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Nodes"
+        context["version"] = settings.VERSION
+        context["user"] = self.request.user
+        context["nodes"] = Node.objects.all()
+        return context
