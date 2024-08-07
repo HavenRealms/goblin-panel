@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/locations/new/', AdminLocationCreateView.as_view(), name='admin-location-create'),
 
     path('admin/nodes/', AdminNodesView.as_view(), name="admin-nodes"),
+    path('admin/nodes/new/', AdminNodeCreateView.as_view(), name="admin-nodes-create"),
 
     path('auth/login/', AuthLoginView.as_view(), name="auth-login"),
     path('auth/logout/', auth_views.LogoutView.as_view(), name="auth-logout"),

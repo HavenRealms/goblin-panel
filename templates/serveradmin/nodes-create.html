@@ -1,0 +1,113 @@
+{% extends "serveradmin/base.html" %}
+{% block page_content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-dark"><i class="fas fa-city"></i> Create Node</h1>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{% url 'admin-dashboard-home' %}">Admin Dashboard</a></li>
+			<li class="breadcrumb-item"><a href="{% url 'admin-nodes' %}">Nodes</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Create Node</li>
+		</ol>
+	</nav>
+</div>
+<hr>
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group">
+			<input class="form-control" id="serverName" name="serverName" type="text" placeholder="Node Name" />
+			<small id="passwordHelpBlock" class="form-text text-muted">Primary node identifier and must be unique from other node names.</small>
+		</div>
+		<div class="form-group">
+			<select class="form-control" id="serverShortCode" name="serverShortCode" type="text" placeholder="Server Location">
+				{% for location in locations %}
+					<option>{{ location }}</option>
+				{% endfor %}
+			</select>
+			<small id="passwordHelpBlock" class="form-text text-muted">The geographical location of this server in the world.</small>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<div class="input-group-text">FQDN: </div>
+				</div>
+				<input class="form-control" id="serverDiskSpace" name="serverDiskSpace" type="text" placeholder="Daemon Domain/Address" />
+				<small class="form-text text-muted">The fully qualified domain name of the server or alternatively specify the direct public IP address.</small>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="font-weight-bold">Use SSL Connection</label>
+			<small class="form-text text-muted">Should we use HTTP or HTTPS when communicating with the daemon.</small>
+			<div class="custom-control custom-radio custom-control-inline">
+			  <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+			  <label class="custom-control-label" for="customRadio1">On</label>
+			</div>
+			<div class="custom-control custom-radio custom-control-inline">
+			  <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+			  <label class="custom-control-label" for="customRadio2">Off</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="font-weight-bold">Behind Proxy</label>
+			<small class="form-text text-muted">Enable this if your application is run behind a proxy such as Cloudflare, TCP Shield or Playit.GG, this skips checking SSL certificates on the host node.</small>
+			<div class="custom-control custom-radio custom-control-inline">
+			  <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+			  <label class="custom-control-label" for="customRadio1">On</label>
+			</div>
+			<div class="custom-control custom-radio custom-control-inline">
+			  <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+			  <label class="custom-control-label" for="customRadio2">Off</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<input class="form-control" id="serverDiskSpace" name="serverDiskSpace" type="text" placeholder="Max Upload Size" />
+				<div class="input-group-append">
+					<div class="input-group-text">MB</div>
+				</div>
+				<small class="form-text text-muted">The total file size allowed for all files uploaded to servers on this node via the panel.</small>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<input class="form-control" id="serverOwner" name="serverOwner" type="text" placeholder="Server Owner" />
+			<small id="passwordHelpBlock" class="form-text text-muted">The user that owns and operates this server.</small>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<input class="form-control" id="serverMemory" name="serverMemory" type="text" placeholder="Server Memory" />
+				<div class="input-group-append">
+					<div class="input-group-text">MB</div>
+				</div>
+				<small class="form-text text-muted">The total amount of memory available to hoardes. Please ensure you leave 1-2GB of available memory for your system to function.</small>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<input class="form-control" id="serverMemory" name="serverMemory" type="text" placeholder="Memory Over Allocation" />
+				<div class="input-group-append">
+					<div class="input-group-text">%</div>
+				</div>
+				<small id="passwordHelpBlock" class="form-text text-muted">Determine how much more percentage over the set amount of memory the daemon can use. Set to 0 to disable.</small>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<input class="form-control" id="serverDiskSpace" name="serverDiskSpace" type="text" placeholder="Server Disk Space" />
+				<div class="input-group-append">
+					<div class="input-group-text">MB</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<input class="form-control" id="serverMemory" name="serverMemory" type="text" placeholder="Disk Over Allocation" />
+				<div class="input-group-append">
+					<div class="input-group-text">%</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

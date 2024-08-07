@@ -108,3 +108,14 @@ class AdminNodesView(LoginRequiredMixin, TemplateView):
         context["user"] = self.request.user
         context["nodes"] = Node.objects.all()
         return context
+
+class AdminNodeCreateView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/nodes-create.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Create Node"
+        context["version"] = settings.VERSION
+        context["locations"] = Location.objects.all()
+        context["user"] = self.request.user
+        return context
