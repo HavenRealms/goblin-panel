@@ -15,7 +15,7 @@ from django.db import models
 class Node(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
-    location = models.ForeignKey('Location', on_delete=models.CASCADE)
+    location = models.ForeignKey('Location', on_delete=models.CASCADE, related_name="nodes")
     fqdn = models.CharField(max_length=255)
     ssl = models.BooleanField(default=True)
     proxy = models.BooleanField(default=False)
