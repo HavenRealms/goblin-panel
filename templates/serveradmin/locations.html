@@ -32,8 +32,8 @@
 				<td><span class="bg-gray-400 p-1 rounded">{{ location.id }}</span></td>
 				<td><a href="{% url 'admin-location-detail' id=location.id %}">{{ location.short_code }}</a></td>
 				<td>{{ location.description }}</td>
-				<td>0</td>
-				<td>0</td>
+				<td><span class="badge badge-secondary">{{ location.nodes.all|length }}</span></td>
+				<td><span class="badge badge-secondary">0</span></td>
 			</tr>
 		{% endfor %}
 	</tbody>
