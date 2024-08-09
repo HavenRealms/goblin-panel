@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Location)
 admin.site.register(Node)
 admin.site.register(Allocation)
+admin.site.register(Database)
