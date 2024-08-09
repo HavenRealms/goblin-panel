@@ -77,7 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "{{ node.id }}",
             fqdn: "{{ node.fqdn }}",
-            ssl: "{{ node.ssl }}" === 'True'  // Convert string to boolean
+            ssl: "{{ node.ssl }}" === 'True',  // Convert string to boolean
+            daemon_token: "{{ node.daemon_token }}"  // Add daemon_token
         }{% if not forloop.last %},{% endif %}
         {% endfor %}
     ];
@@ -88,48 +89,54 @@ document.addEventListener('DOMContentLoaded', function() {
         // Determine the protocol based on the SSL setting
         const protocol = node.ssl ? 'https' : 'http';
 
-        fetch(`${protocol}://${node.fqdn}/docker`, { method: 'GET' })
-            .then(response => {
-                console.log('Response from node:', node.fqdn, response);
-                
-                // Log the response status and the JSON content
-                response.json()
-                    .then(data => {
-                        console.log('Response JSON from node:', node.fqdn, data);
-						if(data["INSTALLED"]) {
-							statusIcon.classList.add('text-success');
-				statusIcon.setAttribute('data-original-title', 'Status: Online');
-						} else {
-								statusIcon.classList.add('text-warning');
-							if(response.status == 401) {
-								statusIcon.setAttribute('data-original-title', 'Status: Misconfigured (Invalid API Key)');
-							} else {
-								statusIcon.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');
-							}
-						}
-                        document.querySelector(`#node-${node.id} .status-content`).textContent = JSON.stringify(data, null, 2);
-                    })
-                    .catch(err => {
-                        console.error('Error parsing JSON from node:', node.fqdn, err);
-                        document.querySelector(`#node-${node.id} .status-content`).textContent = 'Error parsing JSON';
-                    });
+        fetch(`${protocol}://${node.fqdn}/docker`, { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${node.daemon_token}`  // Add Authorization header
+            }
+        })
+        .then(response => {
+            console.log('Response from node:', node.fqdn, response);
+            
+            // Log the response status and the JSON content
+            response.json()
+                .then(data => {
+                    console.log('Response JSON from node:', node.fqdn, data);
+                    
+                    if (data.INSTALLED) {
+                        statusIcon.classList.add('text-success');
+                        statusIcon.classList.remove('text-warning', 'text-danger');
+                        statusIcon.setAttribute('data-original-title', 'Status: Online');
+                    } else {
+                        statusIcon.classList.add('text-warning');
+                        statusIcon.classList.remove('text-success', 'text-danger');
+                        if (response.status === 401) {
+                            statusIcon.setAttribute('data-original-title', 'Status: Misconfigured (Invalid API Key)');
+                        } else {
+                            statusIcon.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');
+                        }
+                    }
+                    
+                    // Update the status content
+                    document.querySelector(`#node-${node.id} .status-content`).textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(err => {
+                    console.error('Error parsing JSON from node:', node.fqdn, err);
+                    document.querySelector(`#node-${node.id} .status-content`).textContent = 'Error parsing JSON';
+                });
 
-                statusIcon.classList.remove('text-secondary');
-                statusIcon.classList.remove('fa-spinner');
-                statusIcon.classList.remove('fa-pulse');
-                statusIcon.classList.add('fa-heart-pulse');
-            })
-            .catch(error => {
-                statusIcon.classList.remove('text-secondary');
-                statusIcon.classList.remove('fa-spinner');
-                statusIcon.classList.remove('fa-pulse');
-                statusIcon.classList.add('fa-heart-pulse');
-                statusIcon.classList.add('text-danger');
-				statusIcon.setAttribute('data-original-title', 'Status: Offline');
-                console.warn('Non-OK response from node:', node.fqdn, error);
-                console.error('Error connecting to node:', node.fqdn, error);
-            });
+            statusIcon.classList.remove('text-secondary', 'fa-spinner', 'fa-pulse');
+            statusIcon.classList.add('fa-heart-pulse');
+        })
+        .catch(error => {
+            statusIcon.classList.remove('text-secondary', 'fa-spinner', 'fa-pulse');
+            statusIcon.classList.add('fa-heart-pulse', 'text-danger');
+            statusIcon.setAttribute('data-original-title', 'Status: Offline');
+            console.warn('Non-OK response from node:', node.fqdn, error);
+            console.error('Error connecting to node:', node.fqdn, error);
+        });
     });
 });
 </script>
+
 {% endblock %}

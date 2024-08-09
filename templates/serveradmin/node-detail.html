@@ -39,83 +39,88 @@ document.addEventListener('DOMContentLoaded', function() {
     // Determine the protocol based on the SSL setting
     const protocol = '{{ node.ssl }}' === 'True' ? 'https' : 'http';
 
-    fetch(`${protocol}://{{ node.fqdn }}/system-info`, { method: 'GET' })
-        .then(response => {
-            console.log('Response from node:', '{{ node.fqdn }}', response);
+    fetch(`${protocol}://{{ node.fqdn }}/system-info`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer {{ node.daemon_token }}`
+        }
+    })
+    .then(response => {
+        console.log('Response from node:', '{{ node.fqdn }}', response);
 
-            // Log the response status and the JSON content
-            response.json()
-                .then(data => {
-					status.classList.remove('text-dark');
-					osInfo.classList.remove('text-dark');
-					osInfo.classList.add('text-success');
-					if (data.daemon.version.endsWith('DEV')) {
-						version.classList.add('text-danger');
-					} else {
-						version.classList.add('text-success');
-					}
-					dockerVersion.classList.remove('text-dark');
-					version.classList.remove('text-dark');
-                    console.log('Response JSON from node:', '{{ node.fqdn }}', data);
+        // Log the response status and the JSON content
+        response.json()
+            .then(data => {
+                status.classList.remove('text-dark');
+                osInfo.classList.remove('text-dark');
+                osInfo.classList.add('text-success');
+                if (data.daemon.version.endsWith('DEV')) {
+                    version.classList.add('text-danger');
+                } else {
+                    version.classList.add('text-success');
+                }
+                dockerVersion.classList.remove('text-dark');
+                version.classList.remove('text-dark');
+                console.log('Response JSON from node:', '{{ node.fqdn }}', data);
 
-                    // Update the table with the response data
-                    version.textContent = data.daemon.version; // Assuming docker_version is included in your API response
-                    osInfo.textContent = `${data.os.system} ${data.os.release} (${data.os.version})`; // Format as needed
-                    
-                    // Update status
-                    if (data.docker.INSTALLED) { // Assuming `installed` field indicates if Docker is installed
-                        status.classList.add('text-success');
-                        status.classList.remove('text-danger');
-                        status.textContent = 'Online';
-						dockerVersion.textContent = "Installed";
-						dockerVersion.classList.add('text-success');
-                        status.setAttribute('data-original-title', 'Status: Online');
-                    } else {
-                        status.classList.add('text-warning');
-                        status.classList.remove('text-danger');
-                        status.textContent = 'Misconfigured';
-						dockerVersion.textContent = "Not Installed";
-						dockerVersion.classList.add('text-danger');
-                        status.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');
-                    }
-                })
-                .catch(err => {
-					status.classList.remove('text-dark');
-					osInfo.classList.remove('text-dark');
-					dockerVersion.classList.remove('text-dark');
-					version.classList.add('text-danger');
-					status.classList.add('text-danger');
-					osInfo.classList.add('text-danger');
-					dockerVersion.classList.add('text-danger');
-					version.classList.remove('text-dark');
-					console.error('Error connecting to node:', '{{ node.fqdn }}', err);
-					// Update the table with error information
-					status.classList.add('text-danger');
-					status.classList.remove('text-success');
-					status.textContent = 'Unauthorized: API Key Mismatch';
-					version.textContent = "Unknown";
-					osInfo.textContent = "Unknown";
-					dockerVersion.textContent = "Unknown";
-                });
-        })
-        .catch(error => {
-			status.classList.remove('text-dark');
-			osInfo.classList.remove('text-dark');
-			dockerVersion.classList.remove('text-dark');
-			version.classList.add('text-danger');
-			status.classList.add('text-danger');
-			osInfo.classList.add('text-danger');
-			dockerVersion.classList.add('text-danger');
-			version.classList.remove('text-dark');
-            console.error('Error connecting to node:', '{{ node.fqdn }}', error);
-            // Update the table with error information
-            status.classList.add('text-danger');
-            status.classList.remove('text-success');
-            status.textContent = 'Offline';
-			version.textContent = "Unknown";
-			osInfo.textContent = "Unknown";
-			dockerVersion.textContent = "Unknown";
-        });
+                // Update the table with the response data
+                version.textContent = data.daemon.version; // Assuming docker_version is included in your API response
+                osInfo.textContent = `${data.os.system} ${data.os.release} (${data.os.version})`; // Format as needed
+
+                // Update status
+                if (data.docker.INSTALLED) { // Assuming `installed` field indicates if Docker is installed
+                    status.classList.add('text-success');
+                    status.classList.remove('text-danger');
+                    status.textContent = 'Online';
+                    dockerVersion.textContent = "Installed";
+                    dockerVersion.classList.add('text-success');
+                    status.setAttribute('data-original-title', 'Status: Online');
+                } else {
+                    status.classList.add('text-warning');
+                    status.classList.remove('text-danger');
+                    status.textContent = 'Misconfigured';
+                    dockerVersion.textContent = "Not Installed";
+                    dockerVersion.classList.add('text-danger');
+                    status.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');
+                }
+            })
+            .catch(err => {
+                status.classList.remove('text-dark');
+                osInfo.classList.remove('text-dark');
+                dockerVersion.classList.remove('text-dark');
+                version.classList.add('text-danger');
+                status.classList.add('text-danger');
+                osInfo.classList.add('text-danger');
+                dockerVersion.classList.add('text-danger');
+                version.classList.remove('text-dark');
+                console.error('Error connecting to node:', '{{ node.fqdn }}', err);
+                // Update the table with error information
+                status.classList.add('text-danger');
+                status.classList.remove('text-success');
+                status.textContent = 'Unauthorized: API Key Mismatch';
+                version.textContent = "Unknown";
+                osInfo.textContent = "Unknown";
+                dockerVersion.textContent = "Unknown";
+            });
+    })
+    .catch(error => {
+        status.classList.remove('text-dark');
+        osInfo.classList.remove('text-dark');
+        dockerVersion.classList.remove('text-dark');
+        version.classList.add('text-danger');
+        status.classList.add('text-danger');
+        osInfo.classList.add('text-danger');
+        dockerVersion.classList.add('text-danger');
+        version.classList.remove('text-dark');
+        console.error('Error connecting to node:', '{{ node.fqdn }}', error);
+        // Update the table with error information
+        status.classList.add('text-danger');
+        status.classList.remove('text-success');
+        status.textContent = 'Offline';
+        version.textContent = "Unknown";
+        osInfo.textContent = "Unknown";
+        dockerVersion.textContent = "Unknown";
+    });
 });
 </script>
 {% endblock %}
