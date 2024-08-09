@@ -32,11 +32,13 @@
 	</thead>
 	<tbody>
 		{% for node in nodes %}
-			<tr>
-				<td class="text-center"><i class="fas fa-heart-pulse text-danger"></i></td>
-				<td>{{ node.name }}</td>
+			<tr id="node-{{ node.id }}">
+				<td class="text-center">
+					<i class="fas fa-spinner fa-pulse status-icon text-secondary" id="status-icon-{{ node.id }}"></i>
+				</td>
+				<td><a href="{% url 'admin-node-detail' id=node.id %}">{{ node.name }}</a></td>
 				<td><a href="{% url 'admin-location-detail' id=node.location.id %}">{{ node.location.short_code }}</a></td>
-				<td><span class="badge badge-secondary">{{ node.memory}} MB</span></td>
+				<td><span class="badge badge-secondary">{{ node.memory }} MB</span></td>
 				<td><span class="badge badge-secondary">{{ node.disk }} MB</span></td>
 				<td class="text-center"><span class="badge badge-secondary">0</span></td>
 				<td class="text-center">
@@ -64,4 +66,48 @@
 		{% endfor %}
 	</tbody>
 </table>
+{% endblock %}
+
+{% block footer_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const nodes = [
+        {% for node in nodes %}
+        {
+            id: "{{ node.id }}",
+            fqdn: "{{ node.fqdn }}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    
+    nodes.forEach(node => {
+        const statusIcon = document.querySelector(`#node-${node.id} .status-icon`);
+
+        fetch(`http://${node.fqdn}/system-info`, { method: 'GET' })
+            .then(response => {
+                console.log('Response from node:', node.fqdn, response);
+                
+				statusIcon.classList.remove('text-secondary');
+				statusIcon.classList.remove('fa-spinner');
+				statusIcon.classList.remove('fa-pulse');
+				statusIcon.classList.add('fa-heart-pulse');
+                if (response.ok) {
+                    statusIcon.classList.add('text-success');
+                } else {
+                    statusIcon.classList.add('text-danger');
+                    console.warn('Non-OK response from node:', node.fqdn, response);
+                }
+            })
+            .catch(error => {
+				statusIcon.classList.remove('text-secondary');
+				statusIcon.classList.remove('fa-spinner');
+				statusIcon.classList.remove('fa-pulse');
+				statusIcon.classList.add('fa-heart-pulse');
+                statusIcon.classList.add('text-danger');
+                console.warn('Non-OK response from node:', node.fqdn, response);
+                console.error('Error connecting to node:', node.fqdn, error);
+            });
+    });
+});
+</script>
 {% endblock %}
