@@ -133,6 +133,59 @@ class AdminNodeConfigView(LoginRequiredMixin, TemplateView):
         context["user"] = self.request.user
         return context
 
+class AdminNodeSettingsView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/node-detail-settings.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["node"] = get_object_or_404(Node, id=self.kwargs["id"])
+        context["page_title"] = context["node"].name
+        context["version"] = settings.VERSION
+        context["locations"] = Location.objects.all()
+        context["users"] = User.objects.all()
+        context["user"] = self.request.user
+        return context
+    def post(self, request, *args, **kwargs):
+        node = get_object_or_404(Node, id=self.kwargs["id"])
+        # Get the POST data
+        name = request.POST.get('serverName')
+        description = request.POST.get('serverDescription')
+        location = request.POST.get("serverLocation")
+        address = request.POST.get("serverAddress")
+        ssl = request.POST.get("serverSSL")
+        proxy = request.POST.get("serverProxy")
+        memory = request.POST.get("serverMemory")
+        memory_over = request.POST.get("serverMemoryOver")
+        disk = request.POST.get("serverDiskSpace")
+        disk_over = request.POST.get("serverDiskSpaceOver")
+        upload_max = request.POST.get("serverMaxUploadSize")
+        visible = request.POST.get("serverVisible")
+
+        # Check if required data is present
+        if not name or not location or not address or not ssl or not proxy or not memory or not memory_over or not disk or not disk_over or not upload_max or not visible:
+            return HttpResponseBadRequest("Missing required fields: " + dumps(request.POST))
+
+        if name == "" or location == "" or address == "" or memory == "" or memory_over == "" or disk == "" or disk_over == "" or upload_max == "":
+            redirect("admin-node-detail", id=node.id)
+
+        # Create and save the new Node instance
+        location = Location.objects.get(pk=int(location))
+        node.name=name
+        node.description=description
+        node.location=location
+        node.fqdn=address
+        node.memory=memory
+        node.memory_overallocate=memory_over
+        node.disk=disk
+        node.disk_overallocate=disk_over
+        node.max_upload_size=upload_max
+        node.public=visible
+
+        node.save()
+
+        # Redirect to the admin locations page
+        return redirect('admin-node-detail', id=node.id)
+
 class AdminNodeCreateView(LoginRequiredMixin, TemplateView):
     template_name = "serveradmin/node-create.html"
 
