@@ -15,6 +15,7 @@ urlpatterns = [
     path('admin/nodes/view/<int:id>/', AdminNodeDetailView.as_view(), name="admin-node-detail"),
     path('admin/nodes/view/config/<int:id>/', AdminNodeConfigView.as_view(), name="admin-node-config"),
     path('admin/nodes/view/settings/<int:id>/', AdminNodeSettingsView.as_view(), name="admin-node-settings"),
+    path('admin/nodes/view/allocations/<int:id>/', AdminNodeAllocationsView.as_view(), name="admin-node-allocations"),
     path('admin/nodes/new/', AdminNodeCreateView.as_view(), name="admin-nodes-create"),
 
     path('auth/login/', AuthLoginView.as_view(), name="auth-login"),

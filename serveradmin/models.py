@@ -38,3 +38,9 @@ class Node(models.Model):
 
     def __str__(self):
         return self.name
+
+class Allocation(models.Model):
+    node = models.ForeignKey(Node, on_delete=models.CASCADE)
+    address = models.CharField(max_length=128)
+    alias = models.CharField(max_length=256)
+    port = models.PositiveIntegerField(max_length=10)

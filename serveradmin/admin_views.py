@@ -186,6 +186,44 @@ class AdminNodeSettingsView(LoginRequiredMixin, TemplateView):
         # Redirect to the admin locations page
         return redirect('admin-node-detail', id=node.id)
 
+class AdminNodeAllocationsView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/node-detail-allocations.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["node"] = get_object_or_404(Node, id=self.kwargs["id"])
+        context["page_title"] = context["node"].name
+        context["version"] = settings.VERSION
+        context["allocations"] = Allocation.objects.filter(node=context["node"])
+        context["user"] = self.request.user
+        return context
+
+    def post(self, request, *args, **kwargs):
+        node = get_object_or_404(Node, id=self.kwargs["id"])
+        allocations = Allocation.objects.filter(node=node)
+        for allocation in allocations:
+            if "address-" + str(allocation.id) in request.POST and "alias-" + str(allocation.id) in request.POST and "port-" + str(allocation.id) in request.POST:
+                allocation.address = request.POST.get("address-" + str(allocation.id))
+                allocation.alias = request.POST.get("alias-" + str(allocation.id))
+                allocation.port = request.POST.get("port-" + str(allocation.id))
+                allocation.save()
+        for value in request.POST:
+            if value.startswith("delete-"):
+                id = int(value.replace("delete-", ""))
+                allocation = get_object_or_404(Allocation, id=id)
+                allocation.delete()
+        if "address-new" in request.POST and "alias-new" in request.POST and "port-new" in request.POST:
+            address = request.POST.get("address-new")
+            alias = request.POST.get("alias-new")
+            port = request.POST.get("port-new")
+            if address != "" and alias != "" and port != "":
+                Allocation.objects.create(
+                    node=node,
+                    address=address,
+                    alias=alias,
+                    port=int(port)
+                )
+        return redirect("admin-node-allocations", id=node.id)
+
 class AdminNodeCreateView(LoginRequiredMixin, TemplateView):
     template_name = "serveradmin/node-create.html"
 
