@@ -111,6 +111,17 @@ class AdminNodesView(LoginRequiredMixin, TemplateView):
         context["nodes"] = Node.objects.all()
         return context
 
+class AdminNodeDetailView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/node-detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["node"] = get_object_or_404(Node, id=self.kwargs["id"])
+        context["page_title"] = context["node"].name
+        context["version"] = settings.VERSION
+        context["user"] = self.request.user
+        return context
+
 class AdminNodeCreateView(LoginRequiredMixin, TemplateView):
     template_name = "serveradmin/node-create.html"
 
