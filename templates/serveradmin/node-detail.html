@@ -7,19 +7,19 @@
         <table class="table table-light table-sm table-borderless rounded-3 overflow-hidden">
             <tbody>
                 <tr>
-                    <td><code class="text-dark">Version</code></td>
+                    <td style="width: 35%;"><code class="text-dark">Version</code></td>
                     <td><code class="badge bg-gray-200 text-dark" id="version"><i class="fas fa-spinner fa-pulse"></i></code></td>
                 </tr>
                 <tr>
-                    <td><code class="text-dark">Docker Version</code></td>
+                    <td style="width: 35%;"><code class="text-dark">Docker Version</code></td>
                     <td><code class="badge bg-gray-200 text-dark" id="docker-version"><i class="fas fa-spinner fa-pulse"></i></code></td>
                 </tr>
                 <tr>
-                    <td><code class="text-dark">OS</code></td>
+                    <td style="width: 35%;"><code class="text-dark">OS</code></td>
                     <td><code class="badge bg-gray-200 text-dark" id="os-info"><i class="fas fa-spinner fa-pulse"></i></code></td>
                 </tr>
                 <tr>
-                    <td><code class="text-dark">Status</code></td>
+                    <td style="width: 35%;"><code class="text-dark">Status</code></td>
                     <td><code class="badge bg-gray-200 text-dark node-status" id="status-info"><i class="fas fa-spinner fa-pulse"></i></code></td>
                 </tr>
             </tbody>
@@ -80,10 +80,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 })
                 .catch(err => {
-                    console.error('Error parsing JSON from node:', '{{ node.fqdn }}', err);
-                    // Update the table with error information
-                    osInfo.textContent = 'Error parsing JSON';
-                    status.textContent = 'Error parsing JSON';
+					status.classList.remove('text-dark');
+					osInfo.classList.remove('text-dark');
+					dockerVersion.classList.remove('text-dark');
+					version.classList.add('text-danger');
+					status.classList.add('text-danger');
+					osInfo.classList.add('text-danger');
+					dockerVersion.classList.add('text-danger');
+					version.classList.remove('text-dark');
+					console.error('Error connecting to node:', '{{ node.fqdn }}', err);
+					// Update the table with error information
+					status.classList.add('text-danger');
+					status.classList.remove('text-success');
+					status.textContent = 'Unauthorized: API Key Mismatch';
+					version.textContent = "Unknown";
+					osInfo.textContent = "Unknown";
+					dockerVersion.textContent = "Unknown";
                 });
         })
         .catch(error => {

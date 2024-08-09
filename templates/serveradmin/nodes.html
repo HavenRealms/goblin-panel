@@ -100,8 +100,12 @@ document.addEventListener('DOMContentLoaded', function() {
 							statusIcon.classList.add('text-success');
 				statusIcon.setAttribute('data-original-title', 'Status: Online');
 						} else {
-							statusIcon.classList.add('text-warning');
-							statusIcon.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');
+								statusIcon.classList.add('text-warning');
+							if(response.status == 401) {
+								statusIcon.setAttribute('data-original-title', 'Status: Misconfigured (Invalid API Key)');
+							} else {
+								statusIcon.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');
+							}
 						}
                         document.querySelector(`#node-${node.id} .status-content`).textContent = JSON.stringify(data, null, 2);
                     })
