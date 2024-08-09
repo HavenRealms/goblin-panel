@@ -1,37 +1,7 @@
 {% extends "serveradmin/base.html" %}
 {% block page_content %}
 <!-- Page Heading -->
-<div class="row d-sm-flex align-items-center justify-content-between mb-4">
-    <div class="col-md-6">
-        <h1 class="h3 mb-0 text-dark"><i class="fas fa-city"></i> {{ node.name }}</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'admin-dashboard-home' %}">Admin Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'admin-nodes' %}">Nodes</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ node.name }}</li>
-            </ol>
-        </nav>
-    </div>
-    <div class="col-md-6">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ request.path }}">Info</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Daemon</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Settings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Allocations</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Servers</a>
-            </li>
-        </ul>
-    </div>
-</div>
+{% include "serveradmin/node-detail-header.html" %}
 <div class="row card bg-light">
     <div class="card-body">
         <table class="table table-light table-sm table-borderless rounded-3 overflow-hidden">
@@ -103,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         status.classList.add('text-warning');
                         status.classList.remove('text-danger');
-                        status.textContent = 'Misconfigured (Docker is not installed.)';
+                        status.textContent = 'Misconfigured';
 						dockerVersion.textContent = "Not Installed";
 						dockerVersion.classList.add('text-danger');
                         status.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');

@@ -1,0 +1,9 @@
+{% extends "serveradmin/base.html" %}
+{% block page_content %}
+<!-- Page Heading -->
+{% include "serveradmin/node-detail-header.html" %}
+<textarea rows="10" class="form-control" disabled="disabled">
+api_key={{ node.daemon_token }}
+panel_url={% if node.ssl %}https://{% else %}http://{% endif %}{{ request.get_host }}
+</textarea>
+{% endblock %}
