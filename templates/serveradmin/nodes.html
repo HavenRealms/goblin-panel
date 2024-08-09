@@ -75,7 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
         {% for node in nodes %}
         {
             id: "{{ node.id }}",
-            fqdn: "{{ node.fqdn }}"
+            fqdn: "{{ node.fqdn }}",
+            ssl: "{{ node.ssl }}" === 'True'  // Convert string to boolean
         }{% if not forloop.last %},{% endif %}
         {% endfor %}
     ];
@@ -83,14 +84,18 @@ document.addEventListener('DOMContentLoaded', function() {
     nodes.forEach(node => {
         const statusIcon = document.querySelector(`#node-${node.id} .status-icon`);
 
-        fetch(`http://${node.fqdn}/system-info`, { method: 'GET' })
+        // Determine the protocol based on the SSL setting
+        const protocol = node.ssl ? 'https' : 'http';
+
+        fetch(`${protocol}://${node.fqdn}/system-info`, { method: 'GET' })
             .then(response => {
                 console.log('Response from node:', node.fqdn, response);
                 
-				statusIcon.classList.remove('text-secondary');
-				statusIcon.classList.remove('fa-spinner');
-				statusIcon.classList.remove('fa-pulse');
-				statusIcon.classList.add('fa-heart-pulse');
+                statusIcon.classList.remove('text-secondary');
+                statusIcon.classList.remove('fa-spinner');
+                statusIcon.classList.remove('fa-pulse');
+                statusIcon.classList.add('fa-heart-pulse');
+                
                 if (response.ok) {
                     statusIcon.classList.add('text-success');
                 } else {
@@ -99,10 +104,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
-				statusIcon.classList.remove('text-secondary');
-				statusIcon.classList.remove('fa-spinner');
-				statusIcon.classList.remove('fa-pulse');
-				statusIcon.classList.add('fa-heart-pulse');
+                statusIcon.classList.remove('text-secondary');
+                statusIcon.classList.remove('fa-spinner');
+                statusIcon.classList.remove('fa-pulse');
+                statusIcon.classList.add('fa-heart-pulse');
                 statusIcon.classList.add('text-danger');
                 console.warn('Non-OK response from node:', node.fqdn, response);
                 console.error('Error connecting to node:', node.fqdn, error);
