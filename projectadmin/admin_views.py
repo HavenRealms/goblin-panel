@@ -7,10 +7,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from .models import *
 from json import dumps
+from django.db.models import Q
 
 # Create your views here.
 class AdminDashboard404View(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/404.html"
+    template_name = "panel/404.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = '404'
@@ -19,16 +20,30 @@ class AdminDashboard404View(LoginRequiredMixin, TemplateView):
         return context
 
 class AdminDashboardView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/dashboard.html"
+    template_name = "panel/dashboard.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context['page_title'] = 'Dashboard'
         context['version'] = settings.VERSION
         context["user"] = self.request.user
+        context["PROJECT_NAME"] = settings.PROJECT_NAME
+        return context
+
+class AdminProjectsView(LoginRequiredMixin, TemplateView):
+    template_name = "panel/projects.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
+        context["page_title"] = "Locations"
+        context["version"] = settings.VERSION
+        context["user"] = self.request.user
+        context["projects"] = Project.objects.all()
         return context
 
 class AdminLocationsView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/locations.html"
+    template_name = "panel/locations.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -39,7 +54,7 @@ class AdminLocationsView(LoginRequiredMixin, TemplateView):
         return context
 
 class AdminLocationDetailView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/location-detail.html"
+    template_name = "panel/location-detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -50,7 +65,7 @@ class AdminLocationDetailView(LoginRequiredMixin, TemplateView):
         return context
 
 class AdminLocationEditView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/location-edit.html"
+    template_name = "panel/location-edit.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,7 +93,7 @@ class AdminLocationEditView(LoginRequiredMixin, TemplateView):
         location.description = description
         location.save()
 
-        # Redirect to the admin locations page
+        # Redirect to the projectadmin locations page
         return redirect('admin-locations')
 
 class AdminLocationCreateView(View):
@@ -97,11 +112,11 @@ class AdminLocationCreateView(View):
         # Create and save the new Location instance
         Location.objects.create(short_code=short_code, description=description)
 
-        # Redirect to the admin locations page
+        # Redirect to the projectadmin locations page
         return redirect('admin-locations')
 
 class AdminNodesView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/nodes.html"
+    template_name = "panel/nodes.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -112,7 +127,7 @@ class AdminNodesView(LoginRequiredMixin, TemplateView):
         return context
 
 class AdminNodeDetailView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/node-detail.html"
+    template_name = "panel/node-detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -123,7 +138,7 @@ class AdminNodeDetailView(LoginRequiredMixin, TemplateView):
         return context
 
 class AdminNodeConfigView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/node-detail-config.html"
+    template_name = "panel/node-detail-config.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -134,7 +149,7 @@ class AdminNodeConfigView(LoginRequiredMixin, TemplateView):
         return context
 
 class AdminNodeSettingsView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/node-detail-settings.html"
+    template_name = "panel/node-detail-settings.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -183,11 +198,11 @@ class AdminNodeSettingsView(LoginRequiredMixin, TemplateView):
 
         node.save()
 
-        # Redirect to the admin locations page
+        # Redirect to the projectadmin locations page
         return redirect('admin-node-detail', id=node.id)
 
 class AdminNodeAllocationsView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/node-detail-allocations.html"
+    template_name = "panel/node-detail-allocations.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["node"] = get_object_or_404(Node, id=self.kwargs["id"])
@@ -225,7 +240,7 @@ class AdminNodeAllocationsView(LoginRequiredMixin, TemplateView):
         return redirect("admin-node-allocations", id=node.id)
 
 class AdminNodeCreateView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/node-create.html"
+    template_name = "panel/node-create.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -272,11 +287,11 @@ class AdminNodeCreateView(LoginRequiredMixin, TemplateView):
             public=visible
         )
 
-        # Redirect to the admin locations page
+        # Redirect to the projectadmin locations page
         return redirect('admin-nodes')
 
 class AdminDatabasesView(LoginRequiredMixin, TemplateView):
-    template_name = "serveradmin/databases.html"
+    template_name = "panel/databases.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

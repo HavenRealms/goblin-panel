@@ -1,0 +1,154 @@
+{% extends "panel/base.html" %}
+{% block page_content %}
+<!-- Page Heading -->
+{% include "panel/node-detail-header.html" %}
+<div class="row card bg-light">
+    <div class="card-body">
+        <table class="table table-light table-sm table-borderless rounded-3 overflow-hidden">
+            <tbody>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Version</code></td>
+                    <td><code class="badge bg-gray-200 text-dark" id="version"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Docker Version</code></td>
+                    <td><code class="badge bg-gray-200 text-dark" id="docker-version"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">OS</code></td>
+                    <td><code class="badge bg-gray-200 text-dark" id="os-info"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Architecture</code></td>
+                    <td><code class="badge bg-gray-200 text-dark" id="os-arch"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Hostname</code></td>
+                    <td><code class="badge bg-gray-200 text-dark" id="os-host"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Status</code></td>
+                    <td><code class="badge bg-gray-200 text-dark node-status" id="status-info"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const status = document.querySelector(`#status-info`);
+    const osInfo = document.querySelector(`#os-info`);
+	const osArch = document.querySelector(`#os-arch`);
+	const osHost = document.querySelector(`#os-host`);
+    const dockerVersion = document.querySelector(`#docker-version`);
+    const version = document.querySelector(`#version`);
+
+    // Determine the protocol based on the SSL setting
+    const protocol = '{{ node.ssl }}' === 'True' ? 'https' : 'http';
+
+    fetch(`${protocol}://{{ node.fqdn }}/system-info`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer {{ node.daemon_token }}`
+        }
+    })
+    .then(response => {
+        console.log('Response from node:', '{{ node.fqdn }}', response);
+
+        // Log the response status and the JSON content
+        response.json()
+            .then(data => {
+                status.classList.remove('text-dark');
+                osInfo.classList.remove('text-dark');
+                osInfo.classList.add('text-success');
+                osArch.classList.remove('text-dark');
+                osArch.classList.add('text-success');
+                osHost.classList.remove('text-dark');
+                osHost.classList.add('text-success');
+                if (data.daemon.version.endsWith('DEV')) {
+                    version.classList.add('text-warning');
+                } else {
+                    version.classList.add('text-success');
+                }
+                dockerVersion.classList.remove('text-dark');
+                version.classList.remove('text-dark');
+                console.log('Response JSON from node:', '{{ node.fqdn }}', data);
+
+                // Update the table with the response data
+                version.textContent = data.daemon.version; // Assuming docker_version is included in your API response
+                osInfo.textContent = `${data.os.system} ${data.os.release} (${data.os.version})`; // Format as needed
+				osArch.textContent = data.os.machine + " " + data.os.architecture;
+				osHost.textContent = data.os.node;
+
+                // Update status
+                if (data.docker.INSTALLED) { // Assuming `installed` field indicates if Docker is installed
+                    status.classList.add('text-success');
+                    status.classList.remove('text-danger');
+                    status.textContent = 'Online';
+                    dockerVersion.textContent = "Installed";
+                    dockerVersion.classList.add('text-success');
+                    status.setAttribute('data-original-title', 'Status: Online');
+                } else {
+                    status.classList.add('text-warning');
+                    status.classList.remove('text-danger');
+                    status.textContent = 'Misconfigured';
+                    dockerVersion.textContent = "Not Installed";
+                    dockerVersion.classList.add('text-danger');
+                    status.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');
+                }
+            })
+            .catch(err => {
+                status.classList.remove('text-dark');
+                osInfo.classList.remove('text-dark');
+				osArch.classList.remove('text-dark');
+				osHost.classList.remove('text-dark');
+                dockerVersion.classList.remove('text-dark');
+                version.classList.add('text-danger');
+                status.classList.add('text-danger');
+                osInfo.classList.add('text-danger');
+				osArch.classList.add('text-danger');
+				osHost.classList.add('text-danger');
+                dockerVersion.classList.add('text-danger');
+                version.classList.remove('text-dark');
+                console.error('Error connecting to node:', '{{ node.fqdn }}', err);
+                // Update the table with error information
+                status.classList.add('text-danger');
+                status.classList.remove('text-success');
+                status.textContent = 'Unauthorized: API Key Mismatch';
+                version.textContent = "Unknown";
+                osInfo.textContent = "Unknown";
+				osArch.textContent = "Unknown";
+				osHost.textContent = "Unknown";
+                dockerVersion.textContent = "Unknown";
+            });
+    })
+    .catch(error => {
+                status.classList.remove('text-dark');
+                osInfo.classList.remove('text-dark');
+				osArch.classList.remove('text-dark');
+				osHost.classList.remove('text-dark');
+                dockerVersion.classList.remove('text-dark');
+                version.classList.add('text-danger');
+                status.classList.add('text-danger');
+                osInfo.classList.add('text-danger');
+				osArch.classList.add('text-danger');
+				osHost.classList.add('text-danger');
+                dockerVersion.classList.add('text-danger');
+                version.classList.remove('text-dark');
+                console.error('Error connecting to node:', '{{ node.fqdn }}', error);
+                // Update the table with error information
+                status.classList.add('text-danger');
+                status.classList.remove('text-success');
+                status.textContent = 'Unauthorized: API Key Mismatch';
+                version.textContent = "Unknown";
+                osInfo.textContent = "Unknown";
+				osArch.textContent = "Unknown";
+				osHost.textContent = "Unknown";
+                dockerVersion.textContent = "Unknown";
+    });
+});
+</script>
+{% endblock %}
