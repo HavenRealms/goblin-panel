@@ -162,5 +162,15 @@ ADMIN_MENU = [
                 "link": "admin-databases"
             }
         ]
+    },
+    {
+        "name": "Image Management",
+        "items": [
+            {
+                "icon": "gem",
+                "label": "Hoardes",
+                "link": "admin-dashboard"
+            }
+        ]
     }
 ]
