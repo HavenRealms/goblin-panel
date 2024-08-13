@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-=@sq97)od%(mi%u84q_@6@e2)nmvhk!pj@v$-0&u2iudjtu004
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    "https://goblinpanel.havenmarket.net"
+]
 
 # Application definition
 
@@ -37,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'projectadmin',
+    'serveradmin',
 ]
 
 MIDDLEWARE = [
@@ -132,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Panel Settings
 PROJECT_NAME = "Project Pulse"
-VERSION = "DEV-0.0.1"
+VERSION = "0.0.1-DEV"
 
 # Menu Settings
 ADMIN_MENU = [
@@ -158,6 +161,41 @@ ADMIN_MENU = [
                 "icon": "code-branch",
                 "label": "Workflows",
                 "link": "projectadmin-nodes"
+            }
+        ]
+    },
+    {
+        "name": "Network Management",
+        "items": [
+            {
+                "icon": "server",
+                "label": "Containers",
+                "link": "admin-locations"
+            },
+            {
+                "icon": "city",
+                "label": "Nodes",
+                "link": "admin-nodes"
+            },
+            {
+                "icon": "earth-oceania",
+                "label": "Locations",
+                "link": "admin-locations"
+            },
+            {
+                "icon": "database",
+                "label": "Databases",
+                "link": "admin-databases"
+            }
+        ]
+    },
+    {
+        "name": "Image Management",
+        "items": [
+            {
+                "icon": "gem",
+                "label": "Hoardes",
+                "link": "admin-dashboard"
             }
         ]
     }

@@ -159,14 +159,14 @@ sup {
 }
 
 a {
-  color: #4e73df;
+  color: #66cd00;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #224abe;
-  text-decoration: underline;
+  color: #00cbff;
+  text-decoration: none;
 }
 
 a:not([href]):not([class]) {
@@ -3368,7 +3368,7 @@ input[type="button"].btn-block {
 .input-group > .custom-file {
   position: relative;
   flex: 1 1 auto;
-  width: 1%;
+  width: auto!important;
   min-width: 0;
   margin-bottom: 0;
 }

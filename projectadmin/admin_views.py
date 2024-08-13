@@ -47,6 +47,7 @@ class AdminLocationsView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["page_title"] = "Locations"
         context["version"] = settings.VERSION
         context["user"] = self.request.user
@@ -58,6 +59,7 @@ class AdminLocationDetailView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["location"] = get_object_or_404(Location, id=self.kwargs["id"])
         context["page_title"] = "Location #" + str(context["location"].id)
         context["version"] = settings.VERSION
@@ -69,6 +71,7 @@ class AdminLocationEditView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["location"] = get_object_or_404(Location, id=self.kwargs["id"])
         context["page_title"] = "Editinng Location #" + str(context["location"].id)
         context["version"] = settings.VERSION
@@ -120,6 +123,7 @@ class AdminNodesView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["page_title"] = "Nodes"
         context["version"] = settings.VERSION
         context["user"] = self.request.user
@@ -131,6 +135,7 @@ class AdminNodeDetailView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["node"] = get_object_or_404(Node, id=self.kwargs["id"])
         context["page_title"] = context["node"].name
         context["version"] = settings.VERSION
@@ -142,6 +147,7 @@ class AdminNodeConfigView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["node"] = get_object_or_404(Node, id=self.kwargs["id"])
         context["page_title"] = context["node"].name
         context["version"] = settings.VERSION
@@ -153,6 +159,7 @@ class AdminNodeSettingsView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["node"] = get_object_or_404(Node, id=self.kwargs["id"])
         context["page_title"] = context["node"].name
         context["version"] = settings.VERSION
@@ -205,6 +212,7 @@ class AdminNodeAllocationsView(LoginRequiredMixin, TemplateView):
     template_name = "panel/node-detail-allocations.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["node"] = get_object_or_404(Node, id=self.kwargs["id"])
         context["page_title"] = context["node"].name
         context["version"] = settings.VERSION
@@ -244,6 +252,7 @@ class AdminNodeCreateView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["page_title"] = "Create Node"
         context["version"] = settings.VERSION
         context["locations"] = Location.objects.all()
@@ -295,6 +304,7 @@ class AdminDatabasesView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
         context["page_title"] = "Databases"
         context["version"] = settings.VERSION
         context["user"] = self.request.user
