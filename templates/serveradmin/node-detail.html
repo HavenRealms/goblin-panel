@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     status.classList.remove('text-danger');
                     status.textContent = 'Online';
                     dockerVersion.textContent = "Installed (Docker " + data.docker.docker.ServerVersion + ")";
-                    dockerNetwork.textContent = jQuery.camelCase(data.docker.docker.Plugins.Network[0]);
+                    dockerNetwork.textContent = data.docker.docker.Plugins.Network[0].toUpperCase();
                     dockerVersion.classList.add('text-success');
                     dockerNetwork.classList.add('text-success');
                     status.setAttribute('data-original-title', 'Status: Online');
