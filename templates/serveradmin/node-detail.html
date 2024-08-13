@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     status.classList.add('text-success');
                     status.classList.remove('text-danger');
                     status.textContent = 'Online';
-                    dockerVersion.textContent = "Installed";
+                    dockerVersion.textContent = "Installed (" + data.docker.docker.KernelVersion + ")";
                     dockerVersion.classList.add('text-success');
                     status.setAttribute('data-original-title', 'Status: Online');
                 } else {
