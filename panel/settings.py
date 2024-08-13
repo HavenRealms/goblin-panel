@@ -140,5 +140,7 @@ VERSION = "0.0.1-DEV"
 # Menu Settings
 ADMIN_MENU = []
 for app in INSTALLED_APPS:
-    app = importlib.import_module(f"{app}.menus")
-    ADMIN_MENU.extend(app.ADMIN_MENU)
+    menulibrary = f"{app}.menus"
+    if importlib.util.find_spec(menulibrary) is not None:
+        app = importlib.import_module(menulibrary)
+        ADMIN_MENU.extend(app.ADMIN_MENU)
