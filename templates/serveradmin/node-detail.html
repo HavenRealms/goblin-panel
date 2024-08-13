@@ -8,11 +8,15 @@
             <tbody>
                 <tr>
                     <td style="width: 35%;"><code class="text-dark">Version</code></td>
-                    <td><code class="badge bg-gray-200 text-dark" id="version"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                    <td><code class="badge bg-gray-200 text-dark" id="version"><i class="fas fa-spinner fa-network-wired"></i></code></td>
                 </tr>
                 <tr>
                     <td style="width: 35%;"><code class="text-dark">Docker Version</code></td>
                     <td><code class="badge bg-gray-200 text-dark" id="docker-version"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Network Driver</code></td>
+                    <td><code class="badge bg-gray-200 text-dark" id="docker-network"><i class="fas fa-spinner fa-pulse"></i></code></td>
                 </tr>
                 <tr>
                     <td style="width: 35%;"><code class="text-dark">OS</code></td>
@@ -44,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const osArch = document.querySelector(`#os-arch`);
 	const osHost = document.querySelector(`#os-host`);
     const dockerVersion = document.querySelector(`#docker-version`);
+    const dockerNetwork = document.querySelector(`#docker-network`);
     const version = document.querySelector(`#version`);
 
     // Determine the protocol based on the SSL setting
@@ -74,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     version.classList.add('text-success');
                 }
                 dockerVersion.classList.remove('text-dark');
+                dockerNetwork.classList.remove('text-dark');
                 version.classList.remove('text-dark');
                 console.log('Response JSON from node:', '{{ node.fqdn }}', data);
 
@@ -89,14 +95,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     status.classList.remove('text-danger');
                     status.textContent = 'Online';
                     dockerVersion.textContent = "Installed (Docker " + data.docker.docker.ServerVersion + ")";
+                    dockerNetwork.textContent = data.docker.docker.Plugins.Network[0];
                     dockerVersion.classList.add('text-success');
+                    dockerNetwork.classList.add('text-success');
                     status.setAttribute('data-original-title', 'Status: Online');
                 } else {
                     status.classList.add('text-warning');
                     status.classList.remove('text-danger');
                     status.textContent = 'Misconfigured';
                     dockerVersion.textContent = "Not Installed";
+                    dockerNetwork.textContent = "Unknown";
                     dockerVersion.classList.add('text-danger');
+                    dockerNetwork.classList.add('text-danger');
                     status.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');
                 }
             })
@@ -106,12 +116,14 @@ document.addEventListener('DOMContentLoaded', function() {
 				osArch.classList.remove('text-dark');
 				osHost.classList.remove('text-dark');
                 dockerVersion.classList.remove('text-dark');
+                dockerNetwork.classList.remove('text-dark');
                 version.classList.add('text-danger');
                 status.classList.add('text-danger');
                 osInfo.classList.add('text-danger');
 				osArch.classList.add('text-danger');
 				osHost.classList.add('text-danger');
                 dockerVersion.classList.add('text-danger');
+                dockerNetwork.classList.add('text-danger');
                 version.classList.remove('text-dark');
                 console.error('Error connecting to node:', '{{ node.fqdn }}', err);
                 // Update the table with error information
@@ -123,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				osArch.textContent = "Unknown";
 				osHost.textContent = "Unknown";
                 dockerVersion.textContent = "Unknown";
+                dockerNetwork.textContent = "Unknown";
             });
     })
     .catch(error => {
