@@ -54,43 +54,27 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Admin Dashboard</span></a>
             </li>
+			
+			{% for menu in MENU %}
+                <!-- Divider -->
+                <hr class="sidebar-divider">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    {{ menu.name }}
+                </div>
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Network Management
-            </div>
+                {% for item in menu.items %}
+                    {% url item.link as url%}
+                    <li class="nav-item {% if request.path == url %}active{% endif %}">
+                        <a class="nav-link" href="{{ url }}">
+                            <i class="fa-solid fa-{{ item.icon }}"></i>
+                            <span>{{ item.label }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fa-solid fa-server"></i>
-                    <span>Servers</span>
-				</a>
-            </li>
-			{% url 'admin-nodes' as url %}
-            <li class="nav-item {% if request.path == url %}active{% endif %}">
-                <a class="nav-link" href="{{ url }}">
-                    <i class="fa-solid fa-city"></i>
-                    <span>Nodes</span>
-				</a>
-            </li>
-			{% url 'admin-locations' as url %}
-            <li class="nav-item {% if request.path == url %}active{% endif %}">
-                <a class="nav-link" href="{{ url }}">
-                    <i class="fa-solid fa-earth-oceania"></i>
-                    <span>Locations</span>
-				</a>
-            </li>
-			{% url 'admin-databases' as url %}
-            <li class="nav-item {% if request.path == url %}active{% endif %}">
-                <a class="nav-link" href="{{ url }}">
-                    <i class="fa-solid fa-database"></i>
-                    <span>Databases</span>
-				</a>
-            </li>
+            {% endfor %}
 
             <!-- Divider -->
             <hr class="sidebar-divider">
