@@ -38,6 +38,22 @@
                     <td style="width: 35%;"><code class="text-dark">Swap Support</code></td>
                     <td><code class="badge bg-gray-200 text-dark node-status" id="swap-support"><i class="fas fa-spinner fa-pulse"></i></code></td>
                 </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Total Containers</code></td>
+                    <td><code class="badge bg-gray-200 text-dark node-status" id="containers-total"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Paused Containers</code></td>
+                    <td><code class="badge bg-gray-200 text-dark node-status" id="containers-paused"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Running Containers</code></td>
+                    <td><code class="badge bg-gray-200 text-dark node-status" id="containers-running"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Stopped Containers</code></td>
+                    <td><code class="badge bg-gray-200 text-dark node-status" id="containers-stopped"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -55,6 +71,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const dockerNetwork = document.querySelector(`#docker-network`);
     const version = document.querySelector(`#version`);
     const swap = document.querySelector(`#swap-support`);
+    const containersTotal = document.querySelector(`#containers-total`);
+    const containersPaused = document.querySelector(`#containers-paused`);
+    const containersRunning = document.querySelector(`#containers-running`);
+    const containersStopped = document.querySelector(`#containers-stopped`);
 
     // Determine the protocol based on the SSL setting
     const protocol = '{{ node.ssl }}' === 'True' ? 'https' : 'http';
@@ -115,6 +135,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     dockerNetwork.textContent = data.docker.docker.Plugins.Network[0].toUpperCase();
                     dockerVersion.classList.add('text-success');
                     dockerNetwork.classList.add('text-success');
+
+                    containersTotal.textContent = data.docker.docker.Containers;
+                    containersPaused.textContent = data.docker.docker.ContainersPaused;
+                    containersRunning.textContent = data.docker.docker.ContainersRunning;
+                    containersStopped.textContent = data.docker.docker.ContainersStopped;
                 } else {
                     status.classList.add('text-warning');
                     status.classList.remove('text-danger');
