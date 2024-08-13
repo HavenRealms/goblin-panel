@@ -43,7 +43,7 @@ class Allocation(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
     address = models.CharField(max_length=128)
     alias = models.CharField(max_length=256)
-    port = models.PositiveIntegerField(max_length=10)
+    port = models.PositiveIntegerField()
 
 
 class Database(models.Model):
@@ -51,7 +51,7 @@ class Database(models.Model):
     username = models.CharField(max_length=255)
     password = models.CharField(max_length=255, blank=True, null=True)  # Consider using Django's encrypted fields for passwords
     host = models.CharField(max_length=255)
-    port = models.PositiveIntegerField(max_length=10)
+    port = models.PositiveIntegerField()
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.name} on {self.node.name}"
