@@ -3,7 +3,7 @@ name: Restart Panel
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   test:
@@ -12,6 +12,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          PANEL_URL: ${{ secrets.PANEL_URL }}
+          PTE_PANEL_URL: ${{ secrets.PANEL_URL }}
           PTE_BEARER_TOKEN: ${{ secrets.API_KEY }}
           PTE_PANEL_ID: ${{ secrets.SERVER_ID }}
