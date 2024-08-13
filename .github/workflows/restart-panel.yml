@@ -1,0 +1,17 @@
+name: Restart Panel with Commit
+
+on:
+  push:
+    branches:
+      - dyn-pl
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          PTE_PANEL_URL: ${{ secrets.PANEL_URL }}
+          PTE_BEARER_TOKEN: ${{ secrets.API_KEY }}
+          PTE_PANEL_ID: ${{ secrets.SERVER_ID }}
