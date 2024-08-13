@@ -130,5 +130,34 @@ handler404 = "serveradmin.admin_views.AdminDashboard404View"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# GOBLIN PANEL Settings
+# Goblin Panel Settings
 VERSION = "DEV-0.0.1"
+
+# Menu Settings
+ADMIN_MENU = [
+    {
+        "name": "Network Management",
+        "items": [
+            {
+                "icon": "server",
+                "label": "Servers",
+                "link": "admin-nodes"
+            },
+            {
+                "icon": "city",
+                "label": "Nodes",
+                "link": "admin-nodes"
+            },
+            {
+                "icon": "earth-oceania",
+                "label": "Locations",
+                "link": "admin-locations"
+            },
+            {
+                "icon": "database",
+                "label": "Databases",
+                "link": "admin-databases"
+            }
+        ]
+    }
+]
