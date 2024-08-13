@@ -43,6 +43,10 @@
                     <td><code class="badge bg-gray-200 text-dark node-status" id="containers-total"><i class="fas fa-spinner fa-pulse"></i></code></td>
                 </tr>
                 <tr>
+                    <td style="width: 35%;"><code class="text-dark">Unmanaged Containers</code></td>
+                    <td><code class="badge bg-gray-200 text-dark node-status" id="containers-unmanaged"><i class="fas fa-spinner fa-pulse"></i></code></td>
+                </tr>
+                <tr>
                     <td style="width: 35%;"><code class="text-dark">Paused Containers</code></td>
                     <td><code class="badge bg-gray-200 text-dark node-status" id="containers-paused"><i class="fas fa-spinner fa-pulse"></i></code></td>
                 </tr>
@@ -72,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const version = document.querySelector(`#version`);
     const swap = document.querySelector(`#swap-support`);
     const containersTotal = document.querySelector(`#containers-total`);
+    const containersUnmanaged = document.querySelector(`#containers-unmanaged`);
     const containersPaused = document.querySelector(`#containers-paused`);
     const containersRunning = document.querySelector(`#containers-running`);
     const containersStopped = document.querySelector(`#containers-stopped`);
@@ -129,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     dockerVersion.classList.add('text-success');
 
                     containersTotal.textContent = data.docker.docker.Containers;
+                    containersTotal.textContent = 0 - data.docker.docker.Containers;
                     containersPaused.textContent = data.docker.docker.ContainersPaused;
                     containersRunning.textContent = data.docker.docker.ContainersRunning;
                     containersStopped.textContent = data.docker.docker.ContainersStopped;
