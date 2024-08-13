@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import importlib
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,40 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 VERSION = "0.0.1-DEV"
 
 # Menu Settings
-ADMIN_MENU = [
-    {
-        "name": "Network Management",
-        "items": [
-            {
-                "icon": "server",
-                "label": "Containers",
-                "link": "admin-locations"
-            },
-            {
-                "icon": "city",
-                "label": "Nodes",
-                "link": "admin-nodes"
-            },
-            {
-                "icon": "earth-oceania",
-                "label": "Locations",
-                "link": "admin-locations"
-            },
-            {
-                "icon": "database",
-                "label": "Databases",
-                "link": "admin-databases"
-            }
-        ]
-    },
-    {
-        "name": "Image Management",
-        "items": [
-            {
-                "icon": "gem",
-                "label": "Hoardes",
-                "link": "admin-dashboard"
-            }
-        ]
-    }
-]
+ADMIN_MENU = []
+for app in INSTALLED_APPS:
+    app = importlib.import_module(f"{app}.menus")
+    ADMIN_MENU.extend(app.ADMIN_MENU)
