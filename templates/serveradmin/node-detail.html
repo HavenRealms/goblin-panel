@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.daemon.version.endsWith('DEV')) {
                     version.classList.add('text-warning');
                     version.textContent = data.daemon.version;
-                    version.insertAdjacentHTML('afterend', '<span class="badge badge-danger">Warning: Development builds are not recommended for production use and have limited support.</span>');
+                    version.insertAdjacentHTML('afterend', ' <span class="badge bg-gray-200 text-danger">Warning: Development builds are not recommended for production use and have limited support.</span>');
                 } else {
                     version.classList.add('text-success');
                     version.textContent = data.daemon.version;
