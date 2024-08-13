@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-3)j!n&-(lev#r^^8e^22f*$b!523y$f-ww2gt8i%tafwk2=r89
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    "https://goblinpanel.havenmarket.net"
+]
 
 
 # Application definition
