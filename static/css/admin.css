@@ -9915,9 +9915,9 @@ a:focus {
 .bg-gradient-custom {
 	color: #fff;
 	background: rgb(255,108,171);
-	background: linear-gradient(100deg, rgba(255,108,171,1) 0%, rgba(115,102,255,1) 60%);
+	background: linear-gradient(100deg, rgba(255,108,171,1) 0%, rgba(115,102,255,1) 50%);
 	border-color: rgb(255,108,171);
-	border-color: linear-gradient(100deg, rgba(255,108,171,1) 0%, rgba(115,102,255,1) 60%);
+	border-color: linear-gradient(100deg, rgba(255,108,171,1) 0%, rgba(115,102,255,1) 50%);
 }
 
 .bg-custom {
@@ -9930,9 +9930,9 @@ a:focus {
 .bg-gradient-custom-reverse {
 	color: #fff;
 	background: rgba(115,102,255,1);
-	background: linear-gradient(100deg, rgba(115,102,255,1) 0%, rgba(255,108,171,1) 60%);
+	background: linear-gradient(100deg, rgba(115,102,255,1) 0%, rgba(255,108,171,1) 50%);
 	border-color: rgba(115,102,255,1);
-	background: linear-gradient(100deg, rgba(115,102,255,1) 0%, rgba(255,108,171,1) 60%);
+	background: linear-gradient(100deg, rgba(115,102,255,1) 0%, rgba(255,108,171,1) 50%);
 }
 
 .bg-gradient-primary {

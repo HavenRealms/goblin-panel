@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3)j!n&-(lev#r^^8e^22f*$b!523y$f-ww2gt8i%tafwk2=r89'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
@@ -138,6 +138,31 @@ VERSION = "0.0.1-DEV"
 
 # Menu Settings
 ADMIN_MENU = [
+{
+        "name": "Project Management",
+        "items": [
+            {
+                "icon": "diagram-project",
+                "label": "Projects",
+                "link": "projectadmin-projects"
+            },
+            {
+                "icon": "list-check",
+                "label": "Tasks",
+                "link": "projectadmin-nodes"
+            },
+            {
+                "icon": "circle-exclamation",
+                "label": "Issues",
+                "link": "projectadmin-nodes"
+            },
+            {
+                "icon": "code-branch",
+                "label": "Workflows",
+                "link": "projectadmin-nodes"
+            }
+        ]
+    },
     {
         "name": "Network Management",
         "items": [
