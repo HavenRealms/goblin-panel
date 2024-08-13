@@ -43,7 +43,7 @@ FRONT_MENU = [
           {
               "icon": "user-shield",
               "label": "Manage Account",
-              "link": "dasboard-home"
+              "link": "dashboard-home"
           }
       ]
     },
