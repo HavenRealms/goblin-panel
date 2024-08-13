@@ -143,8 +143,8 @@ ADMIN_MENU = [
         "items": [
             {
                 "icon": "server",
-                "label": "Servers",
-                "link": "admin-nodes"
+                "label": "Containers",
+                "link": "admin-locations"
             },
             {
                 "icon": "city",
