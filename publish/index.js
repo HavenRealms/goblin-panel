@@ -5568,21 +5568,21 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(186);
 const fetch = __nccwpck_require__(467);
 
-if (!core.getInput('PANEL_URL')) {
+if (!core.getInput('PTE_PANEL_URL')) {
     core.error('No pterodactyl URL was supplied');
     process.exit(1);
 }
-if (!core.getInput('API_KEY')) {
+if (!core.getInput('PTE_BEARER_TOKEN')) {
     core.error('No pterodactyl bearer token was supplied');
     process.exit(1);
 }
-if (!core.getInput('SERVER_ID')) {
+if (!core.getInput('PTE_PANEL_ID')) {
     core.error('No pterodactyl panel ID was supplied');
     process.exit(1);
 }
 
 const headers = {
-    'Authorization': `Bearer ${core.getInput('API_KEY')}`,
+    'Authorization': `Bearer ${core.getInput('PTE_BEARER_TOKEN')}`,
     'Content-Type': 'application/json'
 };
 
@@ -5590,7 +5590,7 @@ const body = {
     "signal": "restart"
 }
 
-const url = `${core.getInput('PANEL_URL')}/api/client/servers/${core.getInput('SERVER_ID')}/power`;
+const url = `${core.getInput('PTE_PANEL_URL')}/api/client/servers/${core.getInput('PTE_PANEL_ID')}/power`;
 fetch(url, { method: 'POST', headers, body: JSON.stringify(body) })
 .then(async (res) => {
     if (res.ok) process.exit(0)
