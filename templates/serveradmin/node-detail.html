@@ -92,10 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 status.classList.remove('text-dark');
                 osInfo.classList.remove('text-dark');
                 osInfo.classList.add('text-success');
-                osArch.classList.remove('text-dark');
-                osArch.classList.add('text-success');
-                osHost.classList.remove('text-dark');
-                osHost.classList.add('text-success');
                 if (data.daemon.version.endsWith('DEV')) {
                     version.classList.add('text-warning');
                     version.textContent = data.daemon.version;
