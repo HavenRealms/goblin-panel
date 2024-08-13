@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import importlib
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,65 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 VERSION = "0.0.1-DEV"
 
 # Menu Settings
-ADMIN_MENU = [
-{
-        "name": "Project Management",
-        "items": [
-            {
-                "icon": "diagram-project",
-                "label": "Projects",
-                "link": "projectadmin-projects"
-            },
-            {
-                "icon": "list-check",
-                "label": "Tasks",
-                "link": "projectadmin-nodes"
-            },
-            {
-                "icon": "circle-exclamation",
-                "label": "Issues",
-                "link": "projectadmin-nodes"
-            },
-            {
-                "icon": "code-branch",
-                "label": "Workflows",
-                "link": "projectadmin-nodes"
-            }
-        ]
-    },
-    {
-        "name": "Network Management",
-        "items": [
-            {
-                "icon": "server",
-                "label": "Containers",
-                "link": "admin-locations"
-            },
-            {
-                "icon": "city",
-                "label": "Nodes",
-                "link": "admin-nodes"
-            },
-            {
-                "icon": "earth-oceania",
-                "label": "Locations",
-                "link": "admin-locations"
-            },
-            {
-                "icon": "database",
-                "label": "Databases",
-                "link": "admin-databases"
-            }
-        ]
-    },
-    {
-        "name": "Image Management",
-        "items": [
-            {
-                "icon": "gem",
-                "label": "Hoardes",
-                "link": "admin-dashboard"
-            }
-        ]
-    }
-]
+ADMIN_MENU = []
+for app in INSTALLED_APPS:
+    menulibrary = f"{app}.menus"
+    if importlib.util.find_spec(menulibrary) is not None:
+        app = importlib.import_module(menulibrary)
+        ADMIN_MENU.extend(app.ADMIN_MENU)
