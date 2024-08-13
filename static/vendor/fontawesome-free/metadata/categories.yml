@@ -1007,7 +1007,7 @@ energy:
     - power-off
     - radiation
     - seedling
-    - solar-projectadmin
+    - solar-panel
     - sun
     - tower-broadcast
     - water

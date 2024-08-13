@@ -6,7 +6,3 @@ admin.site.register(Location)
 admin.site.register(Node)
 admin.site.register(Allocation)
 admin.site.register(Database)
-
-admin.site.register(Project)
-admin.site.register(Task)
-admin.site.register(Issue)
