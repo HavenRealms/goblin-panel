@@ -1,9 +1,9 @@
-name: Restart Panel with Commit
+name: Test
 
 on:
   push:
     branches:
-      - dyn-pl
+      - master
 
 jobs:
   test:
@@ -12,6 +12,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          PTE_PANEL_URL: ${{ secrets.PANEL_URL }}
+          PANEL_URL: ${{ secrets.PANEL_URL }}
           PTE_BEARER_TOKEN: ${{ secrets.API_KEY }}
           PTE_PANEL_ID: ${{ secrets.SERVER_ID }}

@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-3)j!n&-(lev#r^^8e^22f*$b!523y$f-ww2gt8i%tafwk2=r89
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    "https://goblinpanel.havenmarket.net"
+]
 
 
 # Application definition
@@ -130,5 +133,44 @@ handler404 = "serveradmin.admin_views.AdminDashboard404View"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# GOBLIN PANEL Settings
+# Goblin Panel Settings
 VERSION = "DEV-0.0.1"
+
+# Menu Settings
+ADMIN_MENU = [
+    {
+        "name": "Network Management",
+        "items": [
+            {
+                "icon": "server",
+                "label": "Servers",
+                "link": "admin-nodes"
+            },
+            {
+                "icon": "city",
+                "label": "Nodes",
+                "link": "admin-nodes"
+            },
+            {
+                "icon": "earth-oceania",
+                "label": "Locations",
+                "link": "admin-locations"
+            },
+            {
+                "icon": "database",
+                "label": "Databases",
+                "link": "admin-databases"
+            }
+        ]
+    },
+    {
+        "name": "Image Management",
+        "items": [
+            {
+                "icon": "gem",
+                "label": "Hoardes",
+                "link": "admin-dashboard"
+            }
+        ]
+    }
+]
