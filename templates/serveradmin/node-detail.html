@@ -90,8 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
         response.json()
             .then(data => {
                 status.classList.remove('text-dark');
-                osInfo.classList.remove('text-dark');
-                osInfo.classList.add('text-success');
                 if (data.daemon.version.endsWith('DEV')) {
                     version.classList.add('text-warning');
                     version.textContent = data.daemon.version;
@@ -101,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     version.textContent = data.daemon.version;
                 }
                 dockerVersion.classList.remove('text-dark');
-                dockerNetwork.classList.remove('text-dark');
                 version.classList.remove('text-dark');
 
                 console.log('Response JSON from node:', '{{ node.fqdn }}', data);
@@ -130,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     dockerVersion.textContent = "Installed (Docker " + data.docker.docker.ServerVersion + ")";
                     dockerNetwork.textContent = data.docker.docker.Plugins.Network[0].toUpperCase();
                     dockerVersion.classList.add('text-success');
-                    dockerNetwork.classList.add('text-success');
 
                     containersTotal.textContent = data.docker.docker.Containers;
                     containersPaused.textContent = data.docker.docker.ContainersPaused;
