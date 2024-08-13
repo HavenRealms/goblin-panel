@@ -134,7 +134,7 @@ handler404 = "serveradmin.admin_views.AdminDashboard404View"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Goblin Panel Settings
-VERSION = "DEV-0.0.1"
+VERSION = "0.0.1-DEV"
 
 # Menu Settings
 ADMIN_MENU = [
