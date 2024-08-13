@@ -34,6 +34,10 @@
                     <td style="width: 35%;"><code class="text-dark">Status</code></td>
                     <td><code class="badge bg-gray-200 text-dark node-status" id="status-info"><i class="fas fa-spinner fa-pulse"></i></code></td>
                 </tr>
+                <tr>
+                    <td style="width: 35%;"><code class="text-dark">Status</code></td>
+                    <td><code class="badge bg-gray-200 text-dark node-status" id="swap-support"><i class="fas fa-shuffle"></i></code></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -50,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dockerVersion = document.querySelector(`#docker-version`);
     const dockerNetwork = document.querySelector(`#docker-network`);
     const version = document.querySelector(`#version`);
+    const swap = document.querySelector(`#swap-support`);
 
     // Determine the protocol based on the SSL setting
     const protocol = '{{ node.ssl }}' === 'True' ? 'https' : 'http';
@@ -61,8 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
     .then(response => {
-        console.log('Response from node:', '{{ node.fqdn }}', response);
-
         // Log the response status and the JSON content
         response.json()
             .then(data => {
@@ -81,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 dockerVersion.classList.remove('text-dark');
                 dockerNetwork.classList.remove('text-dark');
                 version.classList.remove('text-dark');
+
                 console.log('Response JSON from node:', '{{ node.fqdn }}', data);
 
                 // Update the table with the response data
@@ -91,14 +95,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Update status
                 if (data.docker.INSTALLED) { // Assuming `installed` field indicates if Docker is installed
-                    status.classList.add('text-success');
-                    status.classList.remove('text-danger');
-                    status.textContent = 'Online';
+                    swap.classList.remove('text-dark');
+                    if(data.docker.docker.SwapLimit) {
+                        status.classList.add('text-success');
+                        status.classList.remove('text-danger');
+                        status.textContent = 'Online';
+                        swap.classList.add('text-success');
+                        swap.textContent = "Supported";
+                    } else {
+                        status.classList.add('text-success');
+                        status.classList.remove('text-danger');
+                        status.textContent = 'Online';
+                        swap.classList.add('text-danger');
+                        swap.textContent = "Not Supported";
+                    }
                     dockerVersion.textContent = "Installed (Docker " + data.docker.docker.ServerVersion + ")";
                     dockerNetwork.textContent = data.docker.docker.Plugins.Network[0].toUpperCase();
                     dockerVersion.classList.add('text-success');
                     dockerNetwork.classList.add('text-success');
-                    status.setAttribute('data-original-title', 'Status: Online');
                 } else {
                     status.classList.add('text-warning');
                     status.classList.remove('text-danger');
@@ -107,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     dockerNetwork.textContent = "Unknown";
                     dockerVersion.classList.add('text-danger');
                     dockerNetwork.classList.add('text-danger');
-                    status.setAttribute('data-original-title', 'Status: Misconfigured (Docker is not installed.)');
                 }
             })
             .catch(err => {
