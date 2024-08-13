@@ -52,7 +52,7 @@
             <li class="nav-item {% if request.path == url %}active{% endif %}">
                 <a class="nav-link" href="{{ url }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Admin Dashboard</span></a>
+                    <span>Dashboard</span></a>
             </li>
 			
 			{% for menu in MENU %}
@@ -75,15 +75,6 @@
                 {% endfor %}
 
             {% endfor %}
-			
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-			
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-stairs"></i>
-                    <span>Exit Admin Panel</span></a>
-            </li>
 			
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -138,8 +129,8 @@
                                     Manage Account
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <i class="fas fa-stairs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Exit Admin Panel
+                                    <i class="fas fa-tachometer fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Admin Panel
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
