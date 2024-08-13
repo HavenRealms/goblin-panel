@@ -21,5 +21,5 @@ from .views import *
 urlpatterns = [
     path('djadmin/', admin.site.urls),
     path('', include('serveradmin.urls')),
-    path('', DashboardView.as_view, name="dashboard-home"),
+    path('', DashboardView.as_view(), name="dashboard-home"),
 ]
