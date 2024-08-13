@@ -3,7 +3,7 @@ name: Restart Panel
 on:
   push:
     branches:
-      - master
+      - dyn-pl
 
 jobs:
   test:
