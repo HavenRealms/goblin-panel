@@ -3,15 +3,15 @@ description: 'Automatically restart a pterodactyl container on commit'
 author: '[Supercrafter100]'
 
 inputs:
-  PANEL_URL:
+  PTE_PANEL_URL:
     description: 'The pterodactyl panel URL'
     required: true
   
-  API_KEY:
+  PTE_BEARER_TOKEN:
     description: 'the bearer token for the panel to authorize'
     required: true
   
-  SERVER_ID:
+  PTE_PANEL_ID:
     description: 'The ID of that panel that has to be restarted'
     required: true
 
