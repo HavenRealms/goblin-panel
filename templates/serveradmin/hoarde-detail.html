@@ -15,7 +15,7 @@
 </div>
 <form method="post" action="">
     <div class="card text-dark">
-        <div class="row m-2">
+        <div class="row card-body">
             <div class="col-md-6">
                 {% csrf_token %}
                 <div class="form-group">
@@ -26,8 +26,6 @@
                     <label for="description">Description</label>
                     <textarea class="form-control" name="description" id="description" rows="5">{{ hoarde.description }}</textarea>
                 </div>
-                <hr>
-                <button type="submit" class="btn btn-danger float-left"><i class="fas fa-trash"></i></button>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -42,9 +40,11 @@
                     <label for="uuid">UUID</label>
                     <input class="form-control" name="uuid" id="uuid" type="text" value="{{ hoarde.uuid }}" disabled="disabled">
                 </div>
-                <hr>
-                <button type="submit" class="btn btn-info float-right">Save</button>
             </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-danger float-left"><i class="fas fa-trash"></i></button>
+            <button type="submit" class="btn btn-info float-right">Save</button>
         </div>
     </div>
 </form>
