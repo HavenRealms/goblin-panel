@@ -451,6 +451,7 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
             else:
                 context["success"] = False
                 context["error"] = "You must upload a file in order to update the gem."
+                print(request.FILES)
 
         return self.render_to_response(context)
 
