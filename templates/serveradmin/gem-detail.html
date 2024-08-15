@@ -233,13 +233,11 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/default.min.css"></link>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const editor = CodeMirror.fromTextArea(document.getElementById('script'), {
-        lineNumbers: true,
-        mode: 'text/python',
-        theme: 'default',
-    });
-    editor.refresh();
-}
+const editor = CodeMirror.fromTextArea(document.getElementById('script'), {
+    lineNumbers: true,
+    mode: 'text/python',
+    theme: 'default',
+    autoRefresh: true,
+});
 </script>
 {% endblock %}
