@@ -484,7 +484,40 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
             else:
                 context["success"] = False
                 context["error"] = "You must upload a file in order to update the gem."
-                print(request.FILES)
+        elif "save" in request.POST:
+            requiredFields = ["name", "docker", "startup-command"]
+            fields = ["name", "description", "docker", "startup-command"]
+            started = False
+            for field in fields:
+                if field not in request.POST:
+                    if not started:
+                        started = True
+                        context["error"] = "<ul>"
+                    context["error"] = context["error"] + f"<li>{field} is required."
+                elif field in request.POST and field in requiredFields and request.POST.get(field) == "":
+                    if not started:
+                        context["error"] = "<ul>"
+                        started = True
+                    context["error"] = context["error"] + f"<li>The \"" + field + "\" field is required.</li>"
+            if started:
+                context["error"] = context["error"] + "</ul>"
+            saveRequired = False
+            if not "error" in context:
+                for field in fields:
+                    if field == "name":
+                        context["gem"].json["name"] = request.POST.get(field)
+                    elif field == "description":
+                        context["gem"].json["description"] = request.POST.get(field)
+                    elif field == "docker":
+                        context["gem"].json["docker_images"] = request.POST.get(field)
+                    elif field == "startup-command":
+                        context["gem"].json["config"]["startup"] = dumps(request.POST.get(field), ensure_ascii=False).replace("\n", "\\r\\n")
+                    saveRequired = True
+            if saveRequired:
+                with open(context["gem"].gem_file.path, "w") as f:
+                    f.write(dumps(context["gem"].json, indent=4))
+                    f.close()
+                context["success"] = True
 
         return self.render_to_response(context)
 
