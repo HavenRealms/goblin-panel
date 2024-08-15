@@ -381,7 +381,7 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
                 if field not in request.POST or (field in request.POST and field in requiredFields and request.POST.get(field) == ""):
                     if not started:
                         started = True
-                        context["error"] = context["error"] + "<ul>"
+                        context["error"] = "<ul>"
                     context["error"] = context["error"] + f"<li>{field} is required."
             if started:
                 context["error"] = context["error"] + "</ul>"
