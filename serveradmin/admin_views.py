@@ -360,3 +360,18 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
         context["version"] = settings.VERSION
         context["user"] = self.request.user
         return context
+
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        if "delete" in request.POST:
+            if not context["hoarde"].builtin:
+                context["hoarde"].delete()
+
+                return redirect("admin-hoardes")
+
+            else:
+                context["error"] = "You cannot delete this hoarde as it is builtin."
+
+        return self.render_to_response(context)
