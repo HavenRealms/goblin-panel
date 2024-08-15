@@ -362,7 +362,7 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
         context["version"] = settings.VERSION
         context["user"] = self.request.user
 
-        context["gems"] = Hoarde.gems.all()
+        context["gems"] = context["hoarde"].gems.all()
         directory = f"gems/{context["hoarde"].name}/"
         for gem in context["gems"]:
             with open(directory + gem.name + ".json", "r") as f:
