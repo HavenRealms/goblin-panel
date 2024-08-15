@@ -437,7 +437,7 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
                 gemFile = request.FILES.get("gem-file")
                 if gemFile != "":
                     print(gemFile.name)
-                    if not gemFile.name.endswith(".json"):
+                    if gemFile.name.endswith(".json"):
                         fs = FileSystemStorage()
                         filename = fs.save(gemFile.name, gemFile)
                         context["gem"].gem_file = filename
