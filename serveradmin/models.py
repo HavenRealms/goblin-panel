@@ -71,7 +71,7 @@ class Hoarde(models.Model):
         return f"{self.name} ({self.author})"
 
 class Gem(models.Model):
-    hoarde = models.ForeignKey(Hoarde, on_delete=models.CASCADE)
+    hoarde = models.ForeignKey(Hoarde, on_delete=models.CASCADE, related_name="gems")
     name = models.CharField(max_length=255)
     egg_file = models.FileField(upload_to='eggs/', verbose_name="Egg JSON File")
 

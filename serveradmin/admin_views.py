@@ -319,3 +319,23 @@ class AdminHoardeCreateView(LoginRequiredMixin, TemplateView):
         context["version"] = settings.VERSION
         context["user"] = self.request.user
         return context
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        if "name" in request.POST and "description" in request.POST:
+            name = request.POST.get("name")
+            description = request.POST.get("description")
+
+            if name != "" and description != "":
+                hoarde, created = Hoarde.objects.get_or_create(name=name, description=description)
+
+                if created:
+                    context["success"] = True
+                else:
+                    context["success"] = False
+                    context["error"] = "A hoarde with that name already exists."
+            else:
+                context["success"] = False
+                context["error"] = "All fields are required."
+
+        return self.render_to_response(context)

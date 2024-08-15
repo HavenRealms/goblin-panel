@@ -12,11 +12,24 @@
 			</ol>
 		</nav>
 	</div>
+    {% if success %}
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">New Hoarde Successfully Created.</h4>
+        <p>Your new hoarde has been successfully created and can be viewed on the <a href="{% url 'admin-hoardes' %}">Hoardes Page</a>.</p>
+    </div>
+    {% elif error %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{ error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
 </div>
 <form method="post" action="">
     <div class="form-group">
         <label for="name">Name</label>
-        <input class="form-control" name="name" id="name" type="text">
+        <input class="form-control" name="name" id="name" type="text" value="">
     </div>
     <div class="form-group">
         <label for="description">Description</label>
