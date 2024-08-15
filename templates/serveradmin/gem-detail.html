@@ -208,6 +208,18 @@
                 <h4 class="card-title text-white">Installation Script</h4>
             </div>
             <textarea class="card-body" id="script" name="script" rows="15">{{ gem.json.scripts.installation.script }}</textarea>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="copy-script-from">Copy Script From</label>
+                            <select class="custom-select" name="copy-script-from" id="copy-script-from">
+                                <option value="0" selected="selected">None</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
