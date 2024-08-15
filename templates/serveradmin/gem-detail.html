@@ -96,11 +96,16 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <select class="custom-select" name="copy-from" id="copy-from">
-                            {% for gem in gems %}
-                                <option>{{ gem.name }} ({{ gem.author }})</option>
-                            {% endfor %}
-                        </select>
+                        <div class="form-group">
+                            <label for="copy-from">Copy Settings From</label>
+                            <select class="custom-select" name="copy-from" id="copy-from">
+                                <option value="0" selected="selected"></option>
+                                {% for gem in gems %}
+                                    <option value="{{ gem.id }}">{{ gem.name }} ({{ gem.author }})</option>
+                                {% endfor %}
+                            </select>
+                            <small>If you would like to default to settings from another Gem select it from the menu above.</small>
+                        </div>
                     </div>
                 </div>
             </div>
