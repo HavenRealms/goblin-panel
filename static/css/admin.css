@@ -9896,6 +9896,14 @@ a:focus {
   animation-timing-function: opacity cubic-bezier(0, 1, 0.4, 1);
 }
 
+.bg-gradient-custom {
+	color: #fff;
+	background: rgb(34,193,195);
+	background: linear-gradient(100deg, rgba(34,193,195,1) 0%, rgba(104,253,45,1) 50%);
+	border-color: rgb(34,193,195);
+	border-color: linear-gradient(100deg, rgba(34,193,195,1) 0%, rgba(104,253,45,1) 50%);
+}
+
 @media (min-width: 768px) {
   .bg-gradient-custom {
     color: #fff;
@@ -9906,12 +9914,12 @@ a:focus {
   }
 }
 
-.bg-gradient-custom {
+.bg-gradient-custom-reverse {
 	color: #fff;
 	background: rgb(34,193,195);
-	background: linear-gradient(100deg, rgba(34,193,195,1) 0%, rgba(104,253,45,1) 50%);
+	background: linear-gradient(100deg, rgba(104,253,45,1) 0%, rgba(34,193,195,1) 50%);
 	border-color: rgb(34,193,195);
-	border-color: linear-gradient(100deg, rgba(34,193,195,1) 0%, rgba(104,253,45,1) 50%);
+	border-color: linear-gradient(100deg, rgba(104,253,45,1) 0%, rgba(34,193,195,1) 50%);
 }
 
 @media (min-width: 768px) {
@@ -9922,14 +9930,6 @@ a:focus {
     border-color: rgb(34, 193, 195);
     border-color: linear-gradient(100deg, rgba(104, 253, 45, 1) 0%, rgba(34, 193, 195, 1) 25%);
   }
-}
-
-.bg-gradient-custom-reverse {
-	color: #fff;
-	background: rgb(34,193,195);
-	background: linear-gradient(100deg, rgba(104,253,45,1) 0%, rgba(34,193,195,1) 50%);
-	border-color: rgb(34,193,195);
-	border-color: linear-gradient(100deg, rgba(104,253,45,1) 0%, rgba(34,193,195,1) 50%);
 }
 
 .bg-gradient-primary {
