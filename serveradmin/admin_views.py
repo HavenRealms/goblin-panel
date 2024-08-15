@@ -318,10 +318,28 @@ class AdminHoardesView(LoginRequiredMixin, TemplateView):
 
         if "import" in request.POST:
             if "gem-file" in request.FILES:
-                gemFile = request.FILES.get("gem-file")
-                gemJson = loads(gemFile.read())
-                print(gemJson)
-                context["success"] = True
+                if "hoarde" in request.POST:
+                    gemFile = request.FILES.get("gem-file")
+                    gemJson = loads(gemFile.read())
+
+                    name = gemJson["name"]
+                    hoardeID = int(request.POST.get("hoarde"))
+                    hoarde = Hoarde.objects.get(pk=hoardeID)
+
+                    fs = FileSystemStorage()
+                    filename = fs.save(gemFile.name, gemFile)
+
+                    gem = Gem.objects.create(
+                        name=name,
+                        hoarde=hoarde,
+                        gem_file=filename
+                    )
+                    gem.save()
+                    context["hoardes"] = Hoarde.objects.all()
+                    context["success"] = True
+                else:
+                    context["success"] = False
+                    context["error"] = "You must specify a hoarde to add this gem to."
             else:
                 context["success"] = False
                 context["error"] = "You must upload a file to import."

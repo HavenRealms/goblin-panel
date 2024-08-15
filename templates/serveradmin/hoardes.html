@@ -17,6 +17,22 @@
             <a href="#" class="float-right d-none d-sm-inline-block btn btn-sm btn-success shadow-sm m-1" data-toggle="modal" data-target="#importModal">Import Gem <i class="fas fa-upload fa-sm text-white-50"></i></a>
         </div>
         <p class="p-1 mr-4 page-header">This allows you to manage database hosts for user creation and associated nodes.</p>
+
+        {% if success %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Gem Imported!</strong><br> The gem has been successfully imported.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% elif error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong><br>{{ error|safe }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -34,7 +50,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">UUID</th>
                 <th scope="col">Description</th>
-                <th scope="col">Eggs</th>
+                <th scope="col">Gems</th>
                 <th scope="col">Servers</th>
             </tr>
         </thead>
@@ -45,7 +61,7 @@
                     <td><a href="{% url 'admin-hoarde-detail' id=hoarde.id %}">{{ hoarde.name }}</a></td>
                     <td><span class="badge badge-secondary">{{ hoarde.uuid }}</span></td>
                     <td>{{ hoarde.description }}</td>
-                    <td><span class="badge badge-secondary">0</span></td>
+                    <td><span class="badge badge-secondary">{{ hoarde.gems|length }}</span></td>
                     <td><span class="badge badge-secondary">0</span></td>
                 </tr>
             {% endfor %}
