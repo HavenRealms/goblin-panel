@@ -471,7 +471,7 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
                     print(gemFile.name)
                     if gemFile.name.endswith(".json"):
                         fs = FileSystemStorage()
-                        filename = fs.save(gemFile.name, gemFile)
+                        filename = fs.save(gem_upload_path(context["gem"], gemFile.name), gemFile)
                         context["gem"].gem_file = filename
                         context["gem"].save()
                         context["success"] = True
