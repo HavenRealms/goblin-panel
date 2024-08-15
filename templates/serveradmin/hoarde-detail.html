@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-danger float-left" {% if not hoarde.builtin %}disabled="disabled"{% endif %}><i class="fas fa-trash"></i></button>
+            <button type="submit" class="btn btn-danger float-left" {% if hoarde.builtin %}disabled="disabled"{% endif %}><i class="fas fa-trash"></i></button>
             <button type="submit" class="btn btn-info float-right">Save</button>
         </div>
     </div>
