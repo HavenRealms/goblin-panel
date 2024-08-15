@@ -319,7 +319,7 @@ class AdminHoardesView(LoginRequiredMixin, TemplateView):
         if "import" in request.POST:
             if "gem-file" in request.FILES:
                 gemFile = request.FILES.get("gem-file")
-                gemJson = load(gemFile)
+                gemJson = loads(gemFile.read())
                 print(gemJson)
                 context["success"] = True
             else:
