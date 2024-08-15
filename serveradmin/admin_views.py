@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, View
 from django.contrib.auth.models import User
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, FileResponse, Http404
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
@@ -430,3 +430,9 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
             setattr(context["gem"], "logs", dumps(loads(gemJson["config"]["logs"]), indent=4))
             setattr(context["gem"], "startup", dumps(loads(gemJson["config"]["startup"]), indent=4))
         return context
+
+class AdminGemExportView(View):
+    def get(self, request, *args, **kwargs):
+        gem = get_object_or_404(Gem, id=self.kwargs["id"])
+        response = FileResponse(open(gem.gem_file.path, 'rb'), as_attachment=True, filename='filename.ext')
+        return response
