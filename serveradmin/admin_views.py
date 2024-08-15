@@ -313,6 +313,22 @@ class AdminHoardesView(LoginRequiredMixin, TemplateView):
         context["user"] = self.request.user
         context["hoardes"] = Hoarde.objects.all()
         return context
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        if "import" in request.POST:
+            if "gem-file" in request.FILES:
+                gemFile = request.FILES.get("gem-file")
+                with open(gemFile, "r") as gf:
+                    gemJson = loads(gf.read())
+                    gf.close()
+                print(gemJson)
+                context["success"] = True
+            else:
+                context["success"] = False
+                context["error"] = "You must upload a file to import."
+
+        return self.render_to_response(context)
 
 class AdminHoardeCreateView(LoginRequiredMixin, TemplateView):
     template_name = "serveradmin/hoardes-new.html"
