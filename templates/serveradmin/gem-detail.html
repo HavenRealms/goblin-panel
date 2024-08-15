@@ -7,7 +7,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'admin-dashboard-home' %}">Admin Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'admin-hoardes' %}">Hoardes</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'admin-hoarde-detail' id=gem.hoarde.id %}">{{ gem.hoarde }}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'admin-hoarde-detail' id=gem.hoarde.id %}">{{ gem.hoarde.name }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ gem.name }}</li>
             </ol>
         </nav>
