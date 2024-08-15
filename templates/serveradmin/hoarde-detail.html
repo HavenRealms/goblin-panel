@@ -96,7 +96,7 @@
                     {% for gem in gems %}
                         <tr>
                             <td><span class="badge badge-secondary">{{ gem.id }}</span></td>
-                            <td><a href="{% url 'admin-gem-detail' id=gem.id %}">{{ gem.name }}</a></td>
+                            <td><a href="{% url 'admin-gem-detail' id=gem.id %}"><i class="fas fa-{% if gem.json.icon %}{{ gem.json.icon }}{% else %}gem{% endif %}"{{ gem.name }}</a></td>
                             <td>{{ gem.json.description }}</td>
                             <td>0</td>
                             <td></td>
