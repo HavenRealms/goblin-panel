@@ -74,7 +74,6 @@ class Hoarde(models.Model):
 class Gem(models.Model):
     hoarde = models.ForeignKey(Hoarde, on_delete=models.CASCADE, related_name="gems")
     name = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
     egg_file = models.FileField(upload_to='eggs/', verbose_name="Egg JSON File")
 
     def __str__(self):
