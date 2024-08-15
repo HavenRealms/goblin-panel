@@ -514,7 +514,7 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
                     elif field == "description":
                         context["gem"].json["description"] = request.POST.get(field)
                     elif field == "docker":
-                        context["gem"].json["docker_images"] = request.POST.get(field)
+                        context["gem"].json["docker_images"] = loads(request.POST.get(field))
                     elif field == "startup-command":
                         context["gem"].json["config"]["startup"] = dumps(request.POST.get(field), ensure_ascii=False).replace("\n", "\\r\\n")
                     saveRequired = True
