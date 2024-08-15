@@ -329,14 +329,14 @@ class AdminHoardeCreateView(LoginRequiredMixin, TemplateView):
             description = request.POST.get("description")
             author = request.POST.get("author")
 
-            if name != "" and description != "" and author != "":
+            if name != "" and author != "":
                 try:
                     validate_email(author)
                 except ValidationError:
                     context["success"] = False
                     context["error"] = "The author email address is invalid. Please check your input and try again."
                     return self.render_to_response(context)
-                
+
                 hoarde, created = Hoarde.objects.get_or_create(name=name, author=author, description=description)
 
                 if created:
