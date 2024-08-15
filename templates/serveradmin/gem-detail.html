@@ -29,9 +29,10 @@
         </div>
         {% if success %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <h4 class="alert-heading">Gem Updated</h4>
-                <p>Your gem has been successfully updated.</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Gem Updated!</strong><br> The gem has been successfully updated.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         {% elif error %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
