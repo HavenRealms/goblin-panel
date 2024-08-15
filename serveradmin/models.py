@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+import os
 
 # Create your models here.
 class Location(models.Model):
@@ -84,3 +85,11 @@ class Gem(models.Model):
 
     def __str__(self):
         return self.name
+
+    def delete(self, *args, **kwargs):
+        # Delete the file associated with this model instance
+        if self.egg_file:
+            if os.path.isfile(self.egg_file.path):
+                os.remove(self.egg_file.path)
+        # Call the parent class's delete method
+        super().delete(*args, **kwargs)
