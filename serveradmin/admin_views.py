@@ -432,17 +432,25 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
         return context
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        if "update-gem" in request.POST and request.FILES:
+        if "update-gem" in request.POST:
             if "gem-file" in request.FILES:
-                fs = FileSystemStorage()
                 gemFile = request.FILES.get("gem-file")
-                filename = fs.save(gemFile.name, gemFile)
-                context["gem"].gem_file = filename
-                context["gem"].save()
-                context["success"] = True
+                if gemFile != "":
+                    if not gemFile.name.endswith(".json"):
+                        fs = FileSystemStorage()
+                        filename = fs.save(gemFile.name, gemFile)
+                        context["gem"].gem_file = filename
+                        context["gem"].save()
+                        context["success"] = True
+                    else:
+                        context["success"] = False
+                        context["error"] = "Only *.json files are valid types to be uploaded."
+                else:
+                    context["success"] = False
+                    context["error"] = "There was a problem uploading this file. Please try again."
             else:
                 context["success"] = False
-                context["error"] = "You need to upload a file."
+                context["error"] = "You must upload a file in order to update the gem."
 
         return self.render_to_response(context)
 
