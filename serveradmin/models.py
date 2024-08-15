@@ -59,8 +59,13 @@ class Database(models.Model):
 class Hoarde(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    uuid = models.CharField(max_length=32, unique=True)
+    uuid = models.CharField(max_length=32, blank=True, unique=True)
     author = models.EmailField()
+
+    def save(self, *args, **kwargs):
+        if not self.uuid:
+            self.uuid = uuid.uuid4().hex
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} ({self.author})"
