@@ -31,7 +31,7 @@
         <div class="card text-dark">
             <div class="card-header bg-info">
                 <h5 class="page-title text-white float-left">Gem File</h5>
-                <button class="btn btn-danger btn-sm float-right" type="submit" name="update-gem">Update Gem</button>
+                <button class="btn btn-danger btn-sm float-right" type="submit" name="update">Update Gem</button>
             </div>
             <div class="card-body">
                 <div class="form-group">
@@ -82,6 +82,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-danger btn-sm float-left" type="submit" name="delete" id="delete" {% if gem.hoarde.builtin %}disabled="disabled"{% endif %}><i class="fas fa-trash"></i></button>
+                <button class="btn btn-info btn-info float-right" type="submit" name="save" id="save">Save</button>
+                <a class="btn btn-info btn-primary float-right" href="#">Export</a>
             </div>
         </div>
         <br>
