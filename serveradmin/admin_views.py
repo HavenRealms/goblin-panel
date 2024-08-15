@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
 import glob, ntpath
 from .models import *
@@ -374,7 +375,6 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        print(request.POST)
 
         if "delete" in request.POST:
             if not context["hoarde"].builtin:
@@ -430,6 +430,17 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
             setattr(context["gem"], "logs", dumps(loads(gemJson["config"]["logs"]), indent=4))
             setattr(context["gem"], "startup", dumps(loads(gemJson["config"]["startup"]), indent=4))
         return context
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if "update-gem" in request.POST and request.FILES:
+            if "gem-file" in request.FILES:
+                fs = FileSystemStorage()
+                gemFile = request.FILES.get("gem-file")
+                filename = fs.save(gemFile.name, gemFile)
+                context["gem"].gem_file = filename
+                context["gem"].save()
+                redirect("admin-gem-detail", id=context["gem"].id)
+
 
 class AdminGemExportView(View):
     def get(self, request, *args, **kwargs):
