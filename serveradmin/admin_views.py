@@ -434,5 +434,5 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
 class AdminGemExportView(View):
     def get(self, request, *args, **kwargs):
         gem = get_object_or_404(Gem, id=self.kwargs["id"])
-        response = FileResponse(open(gem.gem_file.path, 'rb'), as_attachment=True, filename='filename.ext')
+        response = FileResponse(open(gem.gem_file.path, 'rb'), as_attachment=True, filename=gem.gem_file.filename)
         return response
