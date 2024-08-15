@@ -356,7 +356,7 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["MENU"] = settings.ADMIN_MENU
         context["hoarde"] = get_object_or_404(Hoarde, id=self.kwargs["id"])
-        context["page_title"] = context["node"].name
+        context["page_title"] = context["hoarde"].name
         context["version"] = settings.VERSION
         context["user"] = self.request.user
         return context
