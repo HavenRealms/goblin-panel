@@ -378,7 +378,12 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
             fields = ["name", "description", "author"]
             started = False
             for field in fields:
-                if field not in request.POST or field in request.POST and field in requiredFields and request.POST.get(field) == "":
+                if field not in request.POST:
+                    if not started:
+                        started = True
+                        context["error"] = "<ul>"
+                    context["error"] = context["error"] + f"<li>{field} is required."
+                elif field in request.POST and field in requiredFields and request.POST.get(field) == "":
                     if not started:
                         started = True
                         context["error"] = "<ul>"
@@ -386,8 +391,8 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
             if started:
                 context["error"] = context["error"] + "</ul>"
             saveRequired = False
-            for field in fields:
-                if not context["error"]:
+            if not context["error"]:
+                for field in fields:
                     setattr(context["hoarde"], field, request.POST.get(field))
                     saveRequired = True
             if saveRequired:
