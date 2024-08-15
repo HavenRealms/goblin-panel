@@ -150,7 +150,7 @@
             </div>
             {% for variable in gem.json.variables %}
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card text-dark">
                         <div class="card-header bg-info">
                             <h6 class="card-title text-white">{{ variable.name }}</h6>
                         </div>
@@ -163,6 +163,22 @@
                                 <label for="description">Description</label>
                                 <input class="form-control" name="description" id="description" value="{{ variable.description }}" />
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="environment">Environment Variable</label>
+                                        <input class="form-control" name="environment" id="environment" value="{{ variable.env_variable }}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="default">Default Value</label>
+                                        <input class="form-control" name="default" id="default" value="{{ variable.default_value }}" />
+                                    </div>
+                                </div>
+                                <small>This variable can be accessed in the startup command by using <span class="badge badge-info">{{ variable.env_variable }}</span></small>
+                            </div>
+                            
                         </div>
                     </div>
                     <br>
