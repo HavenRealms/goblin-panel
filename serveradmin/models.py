@@ -61,6 +61,7 @@ class Hoarde(models.Model):
     description = models.TextField(blank=True)
     uuid = models.CharField(max_length=32, blank=True, unique=True)
     author = models.EmailField()
+    builtin = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.uuid:
