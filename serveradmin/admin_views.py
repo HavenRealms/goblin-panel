@@ -327,7 +327,7 @@ class AdminHoardesView(LoginRequiredMixin, TemplateView):
                     hoarde = Hoarde.objects.get(pk=hoardeID)
 
                     fs = FileSystemStorage()
-                    filename = fs.save(gemFile.name, gemFile)
+                    filename = fs.save(gem_upload_path(hoarde, gemFile.name), gemFile)
 
                     gem = Gem.objects.create(
                         name=name,
@@ -468,11 +468,8 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
             if "gem-file" in request.FILES:
                 gemFile = request.FILES.get("gem-file")
                 if gemFile != "":
-                    print(gemFile.name)
                     if gemFile.name.endswith(".json"):
                         fs = FileSystemStorage()
-                        print(f"Path: {gem_upload_path(context["gem"], gemFile.name)}")
-                        print(f"File: {gemFile.name}")
                         filename = fs.save(gem_upload_path(context["gem"], gemFile.name), gemFile)
                         context["gem"].gem_file = filename
                         context["gem"].save()
