@@ -362,14 +362,13 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
         context["version"] = settings.VERSION
         context["user"] = self.request.user
 
-        gems = []
+        context["gems"] = Hoarde.gems.all()
         directory = f"gems/{context["hoarde"].name}/"
-        for file in glob.glob(f"{directory}*.json"):
-            with open(file, "r") as f:
-                gem = loads(f.read())
+        for gem in context["gems"]:
+            with open(directory + gem.name + ".json", "r") as f:
+                gemJson = loads(f.read())
                 f.close()
-                gems.append(gem)
-        context["gems"] = gems
+                setattr(context["gems"][gem], "json", gemJson)
 
         return context
 
