@@ -65,7 +65,7 @@
                         </div>
                         <div class="form-group">
                             <label for="docker">UUID <small class="text-danger">required</small></label>
-                            <textarea class="form-control" name="docker" id="docker" type="text" rows="5">{% for key, value in gem.json.docker_images.items %}{{ key }}|{{ value }}\n{% endfor %}</textarea>
+                            <textarea class="form-control" name="docker" id="docker" type="text" rows="5">{% for key, value in gem.json.docker_images.items %}{{ key }}|{{ value }}{% if not forloop.last %}&#10;{% endif %}{% endfor %}</textarea>
                             <small>The docker images available to servers using this gem. Enter one per line. Users will be able to select from this list of images if more than one value is provided. Optionally, a display name may be provided by prefixing the image with the name followed by a pipe character, and then the image URL.</small>
                         </div>
                     </div>
