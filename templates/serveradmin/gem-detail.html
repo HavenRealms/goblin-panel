@@ -1,21 +1,30 @@
 {% extends "serveradmin/base.html" %}
 {% block page_content %}
-<!-- Page Heading -->
-<div class="row d-sm-flex align-items-center justify-content-between">
-	<div class="col-md-6">
-		<h1 class="h3 mb-0 text-dark"><i class="fas fa-city"></i> Nodes</h1>
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				{% url 'admin-dashboard-home' as url %}
-				<li class="breadcrumb-item"><a href="{{ url }}">Admin Dashboard</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Nodes</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-6">
-		<a href="{% url 'admin-nodes-create' %}" class="float-end d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">Add Node <i class="fas fa-plus fa-sm text-white-50"></i></a>
-	</div>
-	<p class="p-1 mr-4 page-header">This allows you to manage individual bare metal or dedicated servers which run your goblin daemons.</p>
+<div class="row d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="col-md-5">
+        <h1 class="h3 mb-0 text-dark"><i class="fas fa-city"></i> {{ gem.name }}</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'admin-dashboard-home' %}">Admin Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'admin-hoardes' %}">Hoardes</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'admin-hoarde-detail' id=gem.hoarde.id %}">{{ gem.hoarde }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ gem.name }}</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-md-7">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="config-tab" data-toggle="tab" href="#config" role="tab" aria-controls="config" aria-selected="true">Configuration</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="variables-tab" data-toggle="tab" href="#variables" role="tab" aria-controls="variables" aria-selected="false">Variables</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="install-tab" data-toggle="tab" href="#install" role="tab" aria-controls="install" aria-selected="false">Install Script</a>
+          </li>
+        </ul>
+    </div>
 </div>
 
 {% endblock %}
