@@ -7,8 +7,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.conf import settings
+from django.utils.text import slugify
+import glob
 from .models import *
-from json import dumps
+from json import dumps, loads
 
 # Create your views here.
 class AdminDashboard404View(LoginRequiredMixin, TemplateView):
@@ -359,6 +361,16 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
         context["page_title"] = context["hoarde"].name
         context["version"] = settings.VERSION
         context["user"] = self.request.user
+
+        gems = []
+        directory = f"gems/{context["hoarde"].name}/"
+        for file in glob.glob(f"{directory}*.json"):
+            with open(file, "r") as f:
+                gem = loads(f.read())
+                f.close()
+                gems.append(gem)
+        context["gems"] = gems
+
         return context
 
 
