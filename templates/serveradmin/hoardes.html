@@ -12,8 +12,8 @@
 		</nav>
 	</div>
 	<div class="col-md-6">
-		<a href="{% url 'admin-hoardes-create' %}" class="float-end d-none d-sm-inline-block btn btn-sm btn-info shadow-sm m-1">Create Hoarde <i class="fas fa-plus fa-sm text-white-50"></i></a>
-	    <a href="#" class="float-end d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" data-toggle="modal" data-target="#newLocationModal">Add Location <i class="fas fa-plus fa-sm text-white-50"></i></a>
+		<a href="{% url 'admin-hoardes-create' %}" class="float-right d-none d-sm-inline-block btn btn-sm btn-info shadow-sm m-1">Create Hoarde <i class="fas fa-plus fa-sm text-white-50"></i></a>
+	    <a href="#" class="float-right d-none d-sm-inline-block btn btn-sm btn-info shadow-sm m-1" data-toggle="modal" data-target="#importModal">Add Location <i class="fas fa-plus fa-sm text-white-50"></i></a>
 	</div>
 	<p class="p-1 mr-4 page-header">This allows you to manage database hosts for user creation and associated nodes.</p>
 </div>
@@ -51,29 +51,38 @@
     </tbody>
 </table>
 
-<div class="modal fade" id="newLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
 			<form method="post" action="{% url 'admin-location-create' %}">
 				{% csrf_token %}
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Add New Location</h5>
+						<h5 class="modal-title" id="importModalLabel">Import Gem</h5>
 						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 					</div>
 					<div class="modal-body">
+                        <div class="form-group">
+                            <label for="gem-file">Gem File <small class="text-danger">required</small></label>
+                            <input class="form-control" type="file" name="gem-file" id="gem-file">
+                            <small>Select the <span class="badge badge-info">.json</span> file for the new gem that you wish to import.</small>
+                        </div>
 
-						<div class="form-group">
-							<label for="locationShortCode">Short Code</label>
-							<input type="text" class="form-control" id="locationShortCode" name="short_code" placeholder="Location Shortcode e.g. US">
-						</div>
-
-						<div class="form-group">
-							<label for="locationDescription">Description</label>
-							<input type="text" class="form-control" id="locationDescription" name="description" placeholder="Location Description e.g. US Server #1">
-						</div>
+                        <div class="form-group">
+                            <label for="hoarde">Associated Hoarde <small class="text-danger">required</small></label>
+                            <select class="custom-select" name="hoarde" id="hoarde">
+                                {% for hoarde in hoardes %}
+                                    <option value="{{ hoarde.id }}">{{ hoarde.name }} ({{ hoarde.author }})</option>
+                                {% endfor %}
+                            </select>
+                            <small>Select the nest that this gem will be associated with from the dropdown. If you wish to associate it with a new hoarde you will need to create that hoarde before continuing.</small>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="file" name="gem-file" id="gem-file">
+                            <small>Select the <span class="badge badge-info">.json</span> file for the new egg that you wish to import.</small>
+                        </div>
 
 					</div>
 					<div class="modal-footer">
