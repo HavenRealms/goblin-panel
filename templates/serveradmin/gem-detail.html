@@ -99,12 +99,19 @@
                         <div class="form-group">
                             <label for="copy-from">Copy Settings From</label>
                             <select class="custom-select" name="copy-from" id="copy-from">
-                                <option value="0" selected="selected"></option>
+                                <option value="0" selected="selected">None</option>
                                 {% for gem in gems %}
                                     <option value="{{ gem.id }}">{{ gem.name }} ({{ gem.author }})</option>
                                 {% endfor %}
                             </select>
                             <small>If you would like to default to settings from another Gem select it from the menu above.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="config-files">Configuration Files</label>
+                            <textarea class="form-control" name="config-files" id="config-files" rows="5">{{ gem.files }}</textarea>
+                            <small>This should be a JSON representation of configuration files to modify and what parts should be changed.</small>
                         </div>
                     </div>
                 </div>

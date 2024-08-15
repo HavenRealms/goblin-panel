@@ -426,4 +426,6 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
             gemJson = loads(f.read())
             f.close()
             setattr(context["gem"], "json", gemJson)
+            setattr(context["gem"], "files", loads(gemJson["config"]["files"]))
+            setattr(context["gem"], "startup", loads(gemJson["config"]["startup"]))
         return context
