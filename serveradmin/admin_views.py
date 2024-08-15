@@ -389,7 +389,7 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
                     if not started:
                         context["error"] = "<ul>"
                         started = True
-                    context["error"] = context["error"] + f"<li>{field} is required.</li>"
+                    context["error"] = context["error"] + f"<li>The {field.title()} field is required.</li>"
             if started:
                 context["error"] = context["error"] + "</ul>"
             saveRequired = False
