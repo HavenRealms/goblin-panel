@@ -367,7 +367,7 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
             with open(gem.gem_file.path, "r") as f:
                 gemJson = loads(f.read())
                 f.close()
-                setattr(context["gems"][gem], "json", gemJson)
+                setattr(gem, "json", gemJson)
 
         return context
 
