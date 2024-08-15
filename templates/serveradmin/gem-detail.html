@@ -87,12 +87,21 @@
         <br>
         <div class="card text-dark">
             <div class="card-header bg-info">
-                <h5 class="page-title text-white float-left">Configuration</h5>
+                <h5 class="page-title text-white float-left">Process Management</h5>
             </div>
             <div class="card-body">
                 <div class="alert alert-warning" role="alert">
                     <p>The following configuration options should not be edited unless you understand how this system works. If wrongly modified it is possible for the daemon to break.</p>
                     <p>All fields are required unless you select a separate option from the 'Copy Settings From' dropdown, in which case fields may be left blank to use the values from that gem.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select class="custom-select" name="copy-from" id="copy-from">
+                            {% for gem in gems %}
+                                <option>{{ gem.name }} ({{ gem.author }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
