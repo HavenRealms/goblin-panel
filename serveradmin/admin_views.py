@@ -364,6 +364,7 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        print(request.POST)
 
         if "delete" in request.POST:
             if not context["hoarde"].builtin:
@@ -398,5 +399,4 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
             if saveRequired:
                 context["hoarde"].save()
                 context["success"] = True
-
         return self.render_to_response(context)
