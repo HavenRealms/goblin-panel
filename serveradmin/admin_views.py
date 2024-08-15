@@ -421,7 +421,7 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
         context["page_title"] = context["gem"].name
         context["version"] = settings.VERSION
         context["user"] = self.request.user
-        with open(self.gem_file.path, "r") as f:
+        with open(context["gem"].gem_file.path, "r") as f:
             gemJson = loads(f.read())
             f.close()
             setattr(context["gem"], "json", gemJson)
