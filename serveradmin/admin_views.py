@@ -308,3 +308,14 @@ class AdminHoardesView(LoginRequiredMixin, TemplateView):
         context["user"] = self.request.user
         context["hoardes"] = Hoarde.objects.all()
         return context
+
+class AdminHoardeCreateView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/hoardes-new.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
+        context["page_title"] = "Hoardes"
+        context["version"] = settings.VERSION
+        context["user"] = self.request.user
+        return context

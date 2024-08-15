@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/databases/', AdminDatabasesView.as_view(), name="admin-databases"),
 
     path('admin/hoardes/', AdminHoardesView.as_view(), name="admin-hoardes"),
+    path('admin/hoardes/new/', AdminHoardeCreateView.as_view(), name="admin-hoardes-create"),
 
     path('auth/login/', AuthLoginView.as_view(), name="auth-login"),
     path('auth/logout/', auth_views.LogoutView.as_view(), name="auth-logout"),
