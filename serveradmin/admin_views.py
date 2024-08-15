@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.conf import settings
 from django.utils.text import slugify
-import glob
+import glob, ntpath
 from .models import *
 from json import dumps, loads
 
@@ -434,5 +434,5 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
 class AdminGemExportView(View):
     def get(self, request, *args, **kwargs):
         gem = get_object_or_404(Gem, id=self.kwargs["id"])
-        response = FileResponse(open(gem.gem_file.path, 'rb'), as_attachment=True, filename=gem.gem_file.filename)
+        response = FileResponse(open(gem.gem_file.path, 'rb'), as_attachment=True, filename=ntpath.basename(gem.gem_file.path))
         return response
