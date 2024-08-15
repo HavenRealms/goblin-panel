@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 class Location(models.Model):
@@ -71,10 +72,15 @@ class Hoarde(models.Model):
     def __str__(self):
         return f"{self.name} ({self.author})"
 
+def gem_upload_path(instance, filename):
+    # Convert hoarde name to slug format
+    hoarde_slug = slugify(instance.hoarde.name)
+    # Return the path 'eggs/<slug>/<filename>'
+    return f'eggs/{hoarde_slug}/{filename}'
 class Gem(models.Model):
     hoarde = models.ForeignKey(Hoarde, on_delete=models.CASCADE, related_name="gems")
     name = models.CharField(max_length=255)
-    egg_file = models.FileField(upload_to='eggs/', verbose_name="Egg JSON File")
+    egg_file = models.FileField(upload_to=gem_upload_path, verbose_name="Egg JSON File")
 
     def __str__(self):
         return self.name
