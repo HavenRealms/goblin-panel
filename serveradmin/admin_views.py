@@ -373,5 +373,25 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
 
             else:
                 context["error"] = "You cannot delete this hoarde as it is builtin."
+        elif "save" in request.POST:
+            requiredFields = ["name", "author"]
+            fields = ["name", "description", "author"]
+            started = False
+            for field in fields:
+                if field not in request.POST or (field in request.POST and field in requiredFields and request.POST.get(field) == ""):
+                    if not started:
+                        started = True
+                        context["error"] = context["error"] + "<ul>"
+                    context["error"] = context["error"] + f"<li>{field} is required."
+            if started:
+                context["error"] = context["error"] + "</ul>"
+            saveRequired = False
+            for field in fields:
+                if not context["error"]:
+                    setattr(context["hoarde"], field, request.POST.get(field))
+                    saveRequired = True
+            if saveRequired:
+                context["hoarde"].save()
+                context["success"] = True
 
         return self.render_to_response(context)
