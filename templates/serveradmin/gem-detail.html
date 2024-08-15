@@ -219,12 +219,13 @@
 <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/python/python.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/default.min.css"></link>
 <script>
-CodeMirror.fromTextArea(document.getElementById('script'), {
+const editor = CodeMirror.fromTextArea(document.getElementById('script'), {
     lineNumbers: true,
     mode: 'text/python',
-    theme: 'abbott',
+    theme: 'default',
 });
+editor.refresh();
 </script>
 {% endblock %}
