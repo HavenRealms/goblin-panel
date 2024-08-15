@@ -81,10 +81,16 @@ def gem_upload_path(instance, filename):
 class Gem(models.Model):
     hoarde = models.ForeignKey(Hoarde, on_delete=models.CASCADE, related_name="gems")
     name = models.CharField(max_length=255)
+    uuid = models.CharField(max_length=32, blank=True, unique=True)
     gem_file = models.FileField(upload_to=gem_upload_path, verbose_name="Egg JSON File")
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.uuid:
+            self.uuid = uuid.uuid4().hex
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         # Delete the file associated with this model instance
