@@ -433,6 +433,7 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         if "update-gem" in request.POST:
+            print(request.POST)
             if "gem-file" in request.FILES:
                 gemFile = request.FILES.get("gem-file")
                 if gemFile != "":
