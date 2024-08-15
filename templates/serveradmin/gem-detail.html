@@ -183,13 +183,13 @@
                                 <label>Permissions</label>
                                 <br>
                                 <div class="form-check form-switch form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="userCanEdit" value="" id="userCanEdit">
+                                    <input class="form-check-input" type="checkbox" name="userCanEdit" value="" id="userCanEdit" {% if variable.user_editable %}checked="checked"{% endif %}>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Users Can Edit
                                     </label>
                                 </div>
                                 <div class="form-check form-switch form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="userCanView" value="" id="userCanView">
+                                    <input class="form-check-input" type="checkbox" name="userCanView" value="" id="userCanView" {% if variable.user_viewable %}checked="checked"{% endif %}>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Users Can View
                                     </label>
