@@ -113,6 +113,11 @@
                             <textarea class="form-control" name="config-files" id="config-files" rows="5">{{ gem.files|safe }}</textarea>
                             <small>This should be a JSON representation of configuration files to modify and what parts should be changed.</small>
                         </div>
+                        <div class="form-group">
+                            <label for="config-files">Start Configuration</label>
+                            <textarea class="form-control" name="config-files" id="config-files" rows="5">{{ gem.startup|safe }}</textarea>
+                            <small>This should be a JSON representation of what values the daemon should be looking for when booting a server to determine completion.</small>
+                        </div>
                     </div>
                 </div>
             </div>
