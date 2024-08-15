@@ -427,5 +427,6 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
             f.close()
             setattr(context["gem"], "json", gemJson)
             setattr(context["gem"], "files", dumps(loads(gemJson["config"]["files"]), indent=4))
+            setattr(context["gem"], "logs", dumps(loads(gemJson["config"]["logs"]), indent=4))
             setattr(context["gem"], "startup", dumps(loads(gemJson["config"]["startup"]), indent=4))
         return context

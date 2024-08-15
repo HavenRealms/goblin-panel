@@ -111,6 +111,11 @@
                             <input class="form-control" name="stop-command" id="stop-command" type="text" value="{{ gem.json.config.stop }}">
                             <small>The command that should be sent to server processes to stop them gracefully. If you need to send a <span class="badge badge-info">SIGINT</span> you should enter <span class="badge badge-info">^C</span> here.</small>
                         </div>
+                        <div class="form-group">
+                            <label for="logs">Configuration Files</label>
+                            <textarea class="form-control" name="logs" id="logs" rows="5">{{ gem.logs|safe }}</textarea>
+                            <small>This should be a JSON representation of where log files are stored, and whether or not the daemon should be creating custom logs.</small>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
