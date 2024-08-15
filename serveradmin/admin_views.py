@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.conf import settings
 from .models import *
 from json import dumps
@@ -322,12 +324,20 @@ class AdminHoardeCreateView(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
 
-        if "name" in request.POST and "description" in request.POST:
+        if "name" in request.POST and "description" in request.POST and "author" in request.POST:
             name = request.POST.get("name")
             description = request.POST.get("description")
+            author = request.POST.get("author")
 
-            if name != "" and description != "":
-                hoarde, created = Hoarde.objects.get_or_create(name=name, description=description)
+            if name != "" and description != "" and author != "":
+                try:
+                    validate_email(author)
+                except ValidationError:
+                    context["success"] = False
+                    context["error"] = "The author email address is invalid. Please check your input and try again."
+                    return self.render_to_response(context)
+                
+                hoarde, created = Hoarde.objects.get_or_create(name=name, author=author, description=description)
 
                 if created:
                     context["success"] = True
