@@ -47,7 +47,7 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
+                <th scope="col" style="width: 15%;" class="text-center">Name</th>
                 <th scope="col">UUID</th>
                 <th scope="col">Description</th>
                 <th scope="col">Gems</th>
@@ -57,7 +57,7 @@
         <tbody>
             {% for hoarde in hoardes %}
                 <tr>
-                    <td><span class="badge badge-secondary">{{ hoarde.id }}</span></td>
+                    <td><span class="badge badge-secondary">{% if hoarde.icon %}{{ hoarde.icon }}{% else %}gem{% endif %}{{ hoarde.id }}</span></td>
                     <td><a href="{% url 'admin-hoarde-detail' id=hoarde.id %}">{{ hoarde.name }}</a></td>
                     <td><span class="badge badge-secondary">{{ hoarde.uuid }}</span></td>
                     <td>{{ hoarde.description }}</td>
