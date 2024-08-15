@@ -25,6 +25,19 @@
           </li>
         </ul>
     </div>
+    {% if success %}
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Gem Updated</h4>
+            <p>Your gem has been successfully updated.</p>
+        </div>
+    {% elif error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong><br>{{ error|safe }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
 </div>
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active mb-3" id="config" role="tabpanel" aria-labelledby="config-tab">

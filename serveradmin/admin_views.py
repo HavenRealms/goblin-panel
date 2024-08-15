@@ -439,7 +439,12 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
                 filename = fs.save(gemFile.name, gemFile)
                 context["gem"].gem_file = filename
                 context["gem"].save()
-                redirect("admin-gem-detail", id=context["gem"].id)
+                context["success"] = True
+            else:
+                context["success"] = False
+                context["error"] = "You need to upload a file."
+
+        return self.render_to_response(context)
 
 
 class AdminGemExportView(View):
