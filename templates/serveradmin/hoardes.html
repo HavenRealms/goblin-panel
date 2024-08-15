@@ -61,8 +61,8 @@
                     <td><a href="{% url 'admin-hoarde-detail' id=hoarde.id %}">{{ hoarde.name }}</a></td>
                     <td><span class="badge badge-secondary">{{ hoarde.uuid }}</span></td>
                     <td>{{ hoarde.description }}</td>
-                    <td><span class="badge badge-secondary">{{ hoarde.gems.all|length }}</span></td>
-                    <td><span class="badge badge-secondary">0</span></td>
+                    <td class="text-center"><span class="badge badge-secondary">{{ hoarde.gems.all|length }}</span></td class="text-center">
+                    <td class="text-center"><span class="badge badge-secondary">0</span></td>
                 </tr>
             {% endfor %}
         </tbody>
