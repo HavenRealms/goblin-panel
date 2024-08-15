@@ -505,6 +505,8 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
                 for field in fields:
                     if field == "name":
                         context["gem"].json["name"] = request.POST.get(field)
+                        context["gem"].name = request.POST.get(field)
+                        context["gem"].save()
                     elif field == "description":
                         context["gem"].json["description"] = request.POST.get(field)
                     elif field == "docker":
