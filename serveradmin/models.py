@@ -55,3 +55,12 @@ class Database(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.name} on {self.node.name}"
+
+class Hoarde(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    uuid = models.CharField(max_length=32, unique=True)
+    author = models.EmailField()
+
+    def __str__(self):
+        return f"{self.name} ({self.author})"
