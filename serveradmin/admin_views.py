@@ -418,7 +418,7 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["MENU"] = settings.ADMIN_MENU
         context["gem"] = get_object_or_404(Gem, id=self.kwargs["id"])
-        context["page_title"] = context["hoarde"].name
+        context["page_title"] = context["gem"].name
         context["version"] = settings.VERSION
         context["user"] = self.request.user
         return context
