@@ -39,7 +39,7 @@
 	<tbody>
         {% for hoarde in hoardes %}
             <tr>
-                <td>{{ hoarde.id }}</td>
+                <td><span class="badge badge-secondary">{{ hoarde.id }}</span></td>
                 <td><a href="#">{{ hoarde.name }}</a></td>
                 <td><span class="badge badge-secondary">{{ hoarde.uuid }}</span></td>
                 <td>{{ hoarde.description }}</td>
