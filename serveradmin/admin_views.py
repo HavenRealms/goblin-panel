@@ -385,9 +385,10 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
                         context["error"] = "<ul>"
                     context["error"] = context["error"] + f"<li>{field} is required."
                 elif field in request.POST and field in requiredFields and request.POST.get(field) == "":
+                    print(f"{field} is empty.")
                     if not started:
-                        started = True
                         context["error"] = "<ul>"
+                        started = True
                     context["error"] = context["error"] + f"<li>{field} is required."
             if started:
                 context["error"] = context["error"] + "</ul>"
