@@ -306,4 +306,5 @@ class AdminHoardesView(LoginRequiredMixin, TemplateView):
         context["page_title"] = "Hoardes"
         context["version"] = settings.VERSION
         context["user"] = self.request.user
+        context["hoardes"] = Hoarde.objects.all()
         return context

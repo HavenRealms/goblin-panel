@@ -37,7 +37,16 @@
 		</tr>
 	</thead>
 	<tbody>
-
+        {% for hoarde in hoardes %}
+            <tr>
+                <td>{{ hoarde.id }}</td>
+                <td><a href="#">{{ hoarde.name }}</a></td>
+                <td><span class="badge bg-gray-200">{{ hoarde.uuid }}</span></td>
+                <td>{{ hoarde.description }}</td>
+                <td><span class="badge bg-gray-200">0</span></td>
+                <td><span class="badge bg-gray-200">0</span></td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% endblock %}
