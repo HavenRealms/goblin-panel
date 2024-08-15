@@ -203,7 +203,7 @@
         </div>
     </div>
     <div class="tab-pane fade" id="install" role="tabpanel" aria-labelledby="install-tab">
-        <div class="card">
+        <div class="card text-dark">
             <div class="card-header bg-info">
                 <h4 class="card-title text-white">Installation Script</h4>
             </div>
@@ -216,7 +216,22 @@
                             <select class="custom-select" name="copy-script-from" id="copy-script-from">
                                 <option value="0" selected="selected">None</option>
                             </select>
+                            <small>If selected, script above will be ignored and script from selected option will be used in place.</small>
                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="script-container">Script Container</label>
+                            <input class="form-control" name="script-container" id="script-container" value="{{ gem.json.scripts.installation.container }}" />
+                        </div>
+                        <small>Docker container to use when running this script for the server.</small>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="script-command">Script Entrypoint Command</label>
+                            <input class="form-control" name="script-command" id="script-command" value="{{ gem.json.scripts.installation.entrypoint }}" />
+                        </div>
+                        <small>The entrypoint command to use for this script.</small>
                     </div>
                 </div>
             </div>
