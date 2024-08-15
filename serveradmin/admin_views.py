@@ -411,3 +411,14 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
                 context["hoarde"].save()
                 context["success"] = True
         return self.render_to_response(context)
+
+class AdminGemDetailView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/gem-detail.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
+        context["gem"] = get_object_or_404(Gem, id=self.kwargs["id"])
+        context["page_title"] = context["hoarde"].name
+        context["version"] = settings.VERSION
+        context["user"] = self.request.user
+        return context
