@@ -329,14 +329,18 @@ class AdminHoardesView(LoginRequiredMixin, TemplateView):
                     fs = FileSystemStorage()
                     filename = fs.save(gem_upload_path(hoarde, gemFile.name), gemFile)
 
-                    gem = Gem.objects.create(
+                    gem, created = Gem.objects.get_or_create(
                         name=name,
                         hoarde=hoarde,
                         gem_file=filename
                     )
-                    gem.save()
-                    context["hoardes"] = Hoarde.objects.all()
-                    context["success"] = True
+                    if created:
+                        gem.save()
+                        context["hoardes"] = Hoarde.objects.all()
+                        context["success"] = True
+                    else:
+                        context["success"] = False
+                        context["error"] = "A Gem with this name already exists under this hoarde."
                 else:
                     context["success"] = False
                     context["error"] = "You must specify a hoarde to add this gem to."
