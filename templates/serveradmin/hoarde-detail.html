@@ -13,9 +13,9 @@
 		</nav>
 	</div>
 </div>
-<div class="row">
-    <form method="post" action="">
-        <div class="card">
+<form method="post" action="">
+    <div class="card">
+        <div class="row">
             <div class="col-md-6">
                 {% csrf_token %}
                 <div class="form-group">
@@ -47,6 +47,6 @@
             <button type="submit" class="btn btn-danger float-left"><i class="fas fa-trash"></i></button>
             <button type="submit" class="btn btn-info float-right">Save</button>
         </div>
-    </form>
-</div>
+    </div>
+</form>
 {% endblock %}
