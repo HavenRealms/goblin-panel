@@ -77,19 +77,19 @@ def gem_upload_path(instance, filename):
     # Convert hoarde name to slug format
     hoarde_slug = slugify(instance.hoarde.name)
     # Return the path 'eggs/<slug>/<filename>'
-    return f'eggs/{hoarde_slug}/{filename}'
+    return f'gems/{hoarde_slug}/{filename}'
 class Gem(models.Model):
     hoarde = models.ForeignKey(Hoarde, on_delete=models.CASCADE, related_name="gems")
     name = models.CharField(max_length=255)
-    egg_file = models.FileField(upload_to=gem_upload_path, verbose_name="Egg JSON File")
+    gem_file = models.FileField(upload_to=gem_upload_path, verbose_name="Egg JSON File")
 
     def __str__(self):
         return self.name
 
     def delete(self, *args, **kwargs):
         # Delete the file associated with this model instance
-        if self.egg_file:
-            if os.path.isfile(self.egg_file.path):
-                os.remove(self.egg_file.path)
+        if self.gem_file:
+            if os.path.isfile(self.gem_file.path):
+                os.remove(self.gem_file.path)
         # Call the parent class's delete method
         super().delete(*args, **kwargs)
