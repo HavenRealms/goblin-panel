@@ -57,7 +57,7 @@ class Database(models.Model):
         return f"{self.name} on {self.node.name}"
 
 class Hoarde(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     uuid = models.CharField(max_length=32, blank=True, unique=True)
     author = models.EmailField()
