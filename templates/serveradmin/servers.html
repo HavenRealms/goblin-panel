@@ -14,8 +14,14 @@
 	</div>
 	<div class="col-md-6">
 		<a href="{% url 'admin-nodes-create' %}" class="float-end d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">Add Server <i class="fas fa-plus fa-sm text-white-50"></i></a>
-	</div>
-	<p class="p-1 mr-4 page-header">This allows you to manage individual bare metal or dedicated servers which run your goblin daemons.</p>
+	    <div class="input-group float-right">
+            <input type="text" class="form-control" placeholder="Search Servers" aria-label="Search Servers" aria-describedby="server-search">
+            <div class="input-group-append">
+                <button class="btn btn-info" type="button"><i class="fas fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </div>
+	<p class="p-1 mr-4 page-header">All servers available on the system.</p>
 </div>
 
 {% endblock %}
