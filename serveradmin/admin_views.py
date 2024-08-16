@@ -593,12 +593,10 @@ class AdminUserDetailView(LoginRequiredMixin, TemplateView):
             if started:
                 context["error"] = context["error"] + "</ul>"
             if not "error" in context:
-                user, created = User.objects.get_or_create(username=request.POST.get("username"), email=request.POST.get("email"), first_name=request.POST.get("first_name"), last_name=request.POST.get("last_name"), password=request.POST.get("password"))
-                if created:
-                    user.save()
-                    context["success"] = True
-                else:
-                    context["success"] = False
-                    context["error"] = "A user with one or more of those values already exists."
+                user = context["adminUser"]
+                for field in fields:
+                    setattr(user, field, request.POST.get(field))
+                user.save()
+                context["success"] = True
 
         return self.render_to_response(context)
