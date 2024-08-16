@@ -159,13 +159,13 @@ sup {
 }
 
 a {
-  color: #66cd00;
+  color: var(--bg-secondary);
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #00cbff;
+  color: var(--bg-secondary-alt);
   text-decoration: none;
 }
 
