@@ -603,8 +603,3 @@ class AdminUserDetailView(LoginRequiredMixin, TemplateView):
                 context["success"] = True
 
         return self.render_to_response(context)
-
-from django.contrib.auth.models import User
-user = User.objects.get(username='fibbicles')
-user.set_password('test123')
-user.save()
