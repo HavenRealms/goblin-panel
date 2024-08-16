@@ -97,6 +97,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card text-dark mb-3">
+                        <div class="card-header bg-info">
+                            <h5 class="page-title text-white">Themes & Customization</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="theme">Current Theme:</label>
+                                <select class="form-select" name="theme" id="theme" {% if user == adminUser %}disabled="disabled"{% endif %}>
+                                    <option value="default" selected="selected">Default Theme</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="dark-mode" name="dark-mode" {% if user == adminUser %}disabled="disabled"{% endif %}>
+                                    <label class="form-check-label" for="password">Dark Mode Enabled</label>
+                                    <small>This enables the dark mode version of the theme to conserve power usage.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="card text-dark mb-3">
