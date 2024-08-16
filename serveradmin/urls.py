@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/hoardes/gems/export/<int:id>/', AdminGemExportView.as_view(), name="admin-gem-export"),
 
     path('admin/users/', AdminUsersView.as_view(), name="admin-users"),
+    path('admin/users/view/<int:id>/', AdminUserDetailView.as_view(), name="admin-user-detail"),
 
     path('admin/servers/', AdminServersView.as_view(), name="admin-servers"),
 

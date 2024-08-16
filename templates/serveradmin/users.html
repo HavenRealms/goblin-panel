@@ -39,7 +39,7 @@
         {% for user in users %}
             <tr>
                 <td><span class="badge badge-info">{{ user.id }}</span></td>
-                <td><a href="#">{{ user.email }}</a></td>
+                <td><a href="{% url 'admin-user-detail' id=user.id %}">{{ user.email }}</a></td>
                 <td>{{ user.first_name }} {{ user.last_name }}</td>
                 <td>{{ user.username }}</td>
                 <td class="text-center text-danger"><i class="fas fa-unlock"></i></td>
