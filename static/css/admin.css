@@ -10863,7 +10863,7 @@ p.page-header {
 }
 
 .card .card-header{
-  background: var(--bg-primary)!important;
+  background: var(--bg-primary);
 }
 
 .card .card-header .dropdown {
