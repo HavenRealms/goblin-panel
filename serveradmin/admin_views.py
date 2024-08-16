@@ -549,3 +549,15 @@ class AdminServersView(LoginRequiredMixin, TemplateView):
         context["user"] = self.request.user
         context["servers"] = Server.objects.all()
         return context
+
+class AdminUsersView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/users.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
+        context["page_title"] = "Users"
+        context["version"] = settings.VERSION
+        context["user"] = self.request.user
+        context["users"] = User.objects.all()
+        return context

@@ -25,7 +25,7 @@ ADMIN_MENU = [
             {
                 "icon": "users",
                 "label": "Users",
-                "link": "admin-databases"
+                "link": "admin-users"
             }
         ]
     },
