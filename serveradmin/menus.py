@@ -21,6 +21,11 @@ ADMIN_MENU = [
                 "icon": "database",
                 "label": "Databases",
                 "link": "admin-databases"
+            },
+            {
+                "icon": "users",
+                "label": "Users",
+                "link": "admin-databases"
             }
         ]
     },
