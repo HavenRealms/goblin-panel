@@ -44,7 +44,7 @@
                 <td>{{ user.username }}</td>
                 <td class="text-center text-danger"><i class="fas fa-unlock"></i></td>
                 <td><a href="#">{{ user.servers|length }}</a></td>
-                <td><i class="fas fa-{% if user.is_superuser %}user-secret{% else %}user{% endif %}"></i></td>
+                <td class="text-center"><i class="fas fa-{% if user.is_superuser %}user-secret{% else %}user{% endif %}"></i></td>
             </tr>
         {% endfor %}
     </tbody>
