@@ -30,9 +30,9 @@
 			<th scope="col">Email</th>
 			<th scope="col">Client Name</th>
 			<th scope="col">Username</th>
-			<th scope="col">2FA</th>
+			<th scope="col" class="text-center">2FA</th>
 			<th scope="col">Servers Owned</th>
-			<th scope="col"></th>
+			<th scope="col"><i class="fas fa-user d-block text-center align-text-top pb-1"></i></th>
         </tr>
     </thead>
     <tbody>
@@ -42,7 +42,7 @@
                 <td><a href="#">{{ user.email }}</a></td>
                 <td>{{ user.first_name }} {{ user.last_name }}</td>
                 <td>{{ user.username }}</td>
-                <td class="text-danger"><i class="fas fa-unlock"></i></td>
+                <td class="text-center text-danger"><i class="fas fa-unlock"></i></td>
                 <td><a href="#">{{ user.servers|length }}</a></td>
                 <td><i class="fas fa-{% if user.is_superuser %}user-secret{% else %}user{% endif %}"></i></td>
             </tr>
