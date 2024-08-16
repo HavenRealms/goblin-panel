@@ -606,3 +606,15 @@ class AdminUserDetailView(LoginRequiredMixin, TemplateView):
                 context["success"] = True
 
         return self.render_to_response(context)
+
+class AdminThemesView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/themes.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
+        context["page_title"] = "Themes"
+        context["version"] = settings.VERSION
+        context["user"] = self.request.user
+        context["themes"] = Theme.objects.all()
+        return context

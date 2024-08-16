@@ -139,3 +139,8 @@ class Server(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.uuid})"
+
+class Theme(models.Model):
+    name = models.CharField(max_length=255)
+    light_css = models.TextField(blank=True)
+    dark_css = models.TextField(blank=True)
