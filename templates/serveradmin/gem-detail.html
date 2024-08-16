@@ -169,7 +169,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input class="form-control" name="var-name" id="var-name" value="{{ variable.name }}" />
+                                    <input class="form-control" name="var-name-{{ forloop.counter0 }}" id="var-name-{{ forloop.counter0 }}" value="{{ variable.name }}" />
                                 </div>
                                 <div class="form-group">
                                     <label for="var-description-{{ forloop.counter0 }}">Description</label>
