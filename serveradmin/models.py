@@ -112,7 +112,7 @@ class Server(models.Model):
     uuid = models.CharField(max_length=32, unique=True, blank=True)
     node = models.ForeignKey(Node, on_delete=models.CASCADE, related_name="servers")
     default_allocation = models.ForeignKey(Allocation, on_delete=models.CASCADE, related_name="servers")
-    additional_allocations = models.ManyToManyField(Allocation, related_name="servers")
+    additional_allocations = models.ManyToManyField(Allocation)
     database_limit = models.PositiveIntegerField(default=0, help_text="Database limit")
     allocation_limit = models.PositiveIntegerField(default=0, help_text="Allocation limit")
     backup_limit = models.PositiveIntegerField(default=0, help_text="Backup limit")
