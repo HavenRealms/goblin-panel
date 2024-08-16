@@ -569,7 +569,7 @@ class AdminUserDetailView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["adminUser"] = get_object_or_404(User, id=self.kwargs["id"])
         context["MENU"] = settings.ADMIN_MENU
-        context["page_title"] = context["adminUser"].username
+        context["page_title"] = f"User {context["adminUser"].username}"
         context["version"] = settings.VERSION
         context["user"] = self.request.user
         return context
