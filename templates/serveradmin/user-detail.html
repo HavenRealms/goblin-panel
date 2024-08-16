@@ -25,7 +25,7 @@
         </div>
         {% if success %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Gem Updated!</strong><br> The gem has been successfully updated.
+                <strong>User Updated!</strong><br> This users information was successfully updated.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -49,24 +49,24 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="email">Email Address</label>
+                                <label for="email">Email Address <small class="text-danger">required</small></label>
                                 <input class="form-control" name="email" id="email" value="{{ adminUser.email }}"/>
                             </div>
                             <div class="form-group">
-                                <label for="email">Username</label>
+                                <label for="email">Username <small class="text-danger">required</small></label>
                                 <input class="form-control" name="username" id="username" value="{{ adminUser.username }}"/>
                             </div>
                             <div class="form-group">
-                                <label for="first_name">First Name</label>
+                                <label for="first_name">First Name <small class="text-danger">required</small></label>
                                 <input class="form-control" name="first_name" id="first_name" value="{{ adminUser.first_name }}"/>
                             </div>
                             <div class="form-group">
-                                <label for="last_name">Last Name</label>
+                                <label for="last_name">Last Name <small class="text-danger">required</small></label>
                                 <input class="form-control" name="last_name" id="last_name" value="{{ adminUser.last_name }}"/>
                             </div>
                         </div>
                         <div class="card-footer bg-white">
-                            <btn class="btn btn-info float-right">Update User</btn>
+                            <button type="submit" name="update" class="btn btn-info float-right">Update User</button>
                         </div>
                     </div>
                 </div>

@@ -573,3 +573,32 @@ class AdminUserDetailView(LoginRequiredMixin, TemplateView):
         context["version"] = settings.VERSION
         context["user"] = self.request.user
         return context
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        if "update" in request.POST:
+            fields = ["email", "username", "first_name", "last_name", "password"]
+            started = False
+            for field in fields:
+                if field not in request.POST:
+                    if not started:
+                        started = True
+                        context["error"] = "<ul>"
+                    context["error"] = context["error"] + f"<li>The \"" + field + "\" field is required.</li>"
+                elif field in request.POST and request.POST.get(field) == "":
+                    if not started:
+                        context["error"] = "<ul>"
+                        started = True
+                    context["error"] = context["error"] + f"<li>The \"" + field + "\" field is required.</li>"
+            if started:
+                context["error"] = context["error"] + "</ul>"
+            if not "error" in context:
+                user, created = User.objects.get_or_create(username=request.POST.get("username"), email=request.POST.get("email"), first_name=request.POST.get("first_name"), last_name=request.POST.get("last_name"), password=request.POST.get("password"))
+                if created:
+                    user.save()
+                    context["success"] = True
+                else:
+                    context["success"] = False
+                    context["error"] = "A user with one or more of those values already exists."
+
+        return self.render_to_response(context)
