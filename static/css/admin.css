@@ -4076,6 +4076,7 @@ input[type="button"].btn-block {
 
 .nav-tabs .nav-link {
   color: var(--bg-primary);
+  background: var(--bg-color);
   margin-bottom: -1px;
   border: 1px solid transparent;
   border-top-left-radius: 0.35rem;
@@ -4083,7 +4084,8 @@ input[type="button"].btn-block {
 }
 
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  border-color: var(--bg-primary-alt);
+  color: var(--bg-secondary);
+  background: var(--bg-color);
 }
 
 .nav-tabs .nav-link.disabled {
