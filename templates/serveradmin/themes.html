@@ -17,24 +17,33 @@
     </div>
 	<p class="p-1 mr-4 page-header">All themes available on the panel.</p>
 </div>
-<table class="table table-striped table-light table-bordered table-hover">
-	<thead class="thead-dark">
-		<tr>
-			<th scope="col">Theme Name</th>
-			<th scope="col">Light Mode</th>
-			<th scope="col">Dark Mode</th>
-			<th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for theme in themes %}
-            <tr>
-                <td>{{ theme.name }}</td>
-                <td><span class="badge badge-{% if theme.light_css == "" %}danger{% else %}success{% endif %}"><i class="fas fa-{% if theme.light_css == "" %}square-xmark{% else %}square-check{% endif %}"></i></span></td>
-                <td><span class="badge badge-{% if theme.dark_css == "" %}danger{% else %}success{% endif %}"><i class="fas fa-{% if theme.dark_css == "" %}square-xmark{% else %}square-check{% endif %}"></i></span></td>
-                <td><span class="badge badge-info"><i class="fas fa-wrench"></i></span></td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card text-dark">
+            <div class="card-header">
+                <h5 class="page-title text-white">Installed Themes</h5>
+            </div>
+            <table class="table table-striped table-light table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Theme Name</th>
+                        <th scope="col">Light Mode</th>
+                        <th scope="col">Dark Mode</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for theme in themes %}
+                        <tr>
+                            <td>{{ theme.name }}</td>
+                            <td><span class="badge badge-{% if theme.light_css == "" %}danger{% else %}success{% endif %}"><i class="fas fa-{% if theme.light_css == "" %}square-xmark{% else %}square-check{% endif %}"></i></span></td>
+                            <td><span class="badge badge-{% if theme.dark_css == "" %}danger{% else %}success{% endif %}"><i class="fas fa-{% if theme.dark_css == "" %}square-xmark{% else %}square-check{% endif %}"></i></span></td>
+                            <td><span class="badge badge-info"><i class="fas fa-wrench"></i></span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
