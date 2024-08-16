@@ -5,7 +5,7 @@ ADMIN_MENU = [
             {
                 "icon": "server",
                 "label": "Servers",
-                "link": "admin-locations"
+                "link": "admin-servers"
             },
             {
                 "icon": "city",
