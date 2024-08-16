@@ -26,7 +26,11 @@
     <link href="{% static 'css/admin.css' %}" rel="stylesheet">
 
     <style>
-        {{ theme.light_css }}
+        {% if user.profile.dark_mode %}
+            {{ user.profile.theme.dark_css }}
+        {% else %}
+            {{ user.profile.theme.light_css }}
+        {% endif %}
     </style>
 
 </head>

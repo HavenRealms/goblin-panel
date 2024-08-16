@@ -613,7 +613,6 @@ class AdminThemesView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["MENU"] = settings.ADMIN_MENU
-        context["theme"] = Theme.objects.all().first()
         context["page_title"] = "Themes"
         context["version"] = settings.VERSION
         context["user"] = self.request.user
