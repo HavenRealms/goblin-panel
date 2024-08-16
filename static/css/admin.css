@@ -2358,15 +2358,28 @@ fieldset:disabled a.btn {
   pointer-events: none;
 }
 
-.btn-custom {
-  color: #fff;
+.btn-custom-primary {
+  color: #dfdfdf;
   background-color: var(--bg-primary);
   border-color: var(--bg-primary);
 }
 
-.btn-custom:hover {
+.btn-custom-primary:hover {
+  color: #fff;
+  background-color: var(--bg-primary-alt);
+  border-color: var(--bg-primary-alt);
+}
+
+.btn-custom-secondary {
+  color: #dfdfdf;
   background-color: var(--bg-secondary);
-  background-color: var(--bg-secondary);
+  border-color: var(--bg-secondary);
+}
+
+.btn-custom-secondary:hover {
+  color: #fff;
+  background-color: var(--bg-secondary-alt);
+  border-color: var(--bg-secondary-alt);
 }
 
 .btn-primary {
