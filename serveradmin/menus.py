@@ -4,7 +4,7 @@ ADMIN_MENU = [
         "items": [
             {
                 "icon": "server",
-                "label": "Containers",
+                "label": "Servers",
                 "link": "admin-locations"
             },
             {
