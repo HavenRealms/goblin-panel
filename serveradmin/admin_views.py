@@ -521,7 +521,7 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
                             dockerJson[name] = image
                         context["gem"].json["docker_images"] = dockerJson
                     elif field == "startup-command":
-                        context["gem"].json["config"]["startup"] = dumps(request.POST.get(field), ensure_ascii=False).replace("\n", "\\r\\n")
+                        context["gem"].json["startup"] = dumps(request.POST.get(field), ensure_ascii=False).replace("\n", "\\r\\n")
                     saveRequired = True
             if saveRequired:
                 with open(context["gem"].gem_file.path, "w") as f:
