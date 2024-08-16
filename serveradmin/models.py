@@ -146,9 +146,6 @@ class Theme(models.Model):
     dark_css = models.TextField(blank=True)
 
 class UserProfile(models.Model):
-
-    class Meta:
-        app_label = 'auth'
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
     dark_mode = models.BooleanField(default=False)
