@@ -107,7 +107,7 @@
                             <p>There must be no servers associated with this account in order for it to be deleted.</p>
                         </div>
                         <div class="card-footer bg-white">
-                            <button type="submit" name="delete" class="btn btn-danger float-right" {% if adminUser.servers|length > 0 %}disabled="disabled"{% endif %}></button>
+                            <button type="submit" name="delete" class="btn btn-danger float-right" {% if adminUser.servers|length > 0 %}disabled="disabled"{% endif %}>Delete User</button>
                         </div>
                     </div>
                 </div>
