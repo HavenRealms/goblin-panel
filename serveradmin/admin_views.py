@@ -595,6 +595,8 @@ class AdminUserDetailView(LoginRequiredMixin, TemplateView):
             if not "error" in context:
                 user = context["adminUser"]
                 for field in fields:
+                    if field == "password" and request.POST.get(field) == "":
+                        continue
                     setattr(user, field, request.POST.get(field))
                 user.save()
                 context["success"] = True
