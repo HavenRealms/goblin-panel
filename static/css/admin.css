@@ -3359,6 +3359,8 @@ input[type="button"].btn-block {
 
 .form-select:disabled {
   background-color: #eaecf4;
+  color: #6e707e;
+  border: 1px solid #d1d3e2;
 }
 
 .input-group {
