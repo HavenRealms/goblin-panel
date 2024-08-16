@@ -1840,6 +1840,11 @@ pre code {
   border-radius: 0.35rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.form-control:disabled, .form-control[readonly],
+.form-select:disabled, .form-select[readonly] {
+  background-color: var(--body-bg-alt);
+  border-color: var(--body-bg-alt);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .form-control {
