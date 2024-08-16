@@ -65,7 +65,7 @@
                                 <input class="form-control" name="last_name" id="last_name" value="{{ adminUser.last_name }}"{% if user == adminUser %}disabled="disabled"{% endif %}/>
                             </div>
                         </div>
-                        <div class="card-footer bg-white">
+                        <div class="card-footer">
                             <button type="submit" name="update" class="btn btn-custom-primary float-right" {% if user == adminUser %}disabled="disabled"{% endif %}>Update User</button>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                                 <li>The user must not be the same as the one you are currently logged in with i.e. you can't delete your own account.</li>
                             </ul>
                         </div>
-                        <div class="card-footer bg-white">
+                        <div class="card-footer">
                             <button type="submit" name="delete" class="btn btn-danger float-right" {% if adminUser.servers.count > 0 or adminUser.is_superuser or adminUser == user %}disabled="disabled"{% endif %}>Delete User</button>
                         </div>
                     </div>
