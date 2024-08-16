@@ -512,7 +512,6 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
                         context["gem"].name = request.POST.get(field)
                         context["gem"].save()
                     elif field == "description":
-                        print(f"Desc: {request.POST.get(field)}")
                         context["gem"].json["description"] = request.POST.get(field)
                     elif field == "docker":
                         dockerJson = {}
