@@ -9803,7 +9803,7 @@ a:focus {
 }
 
 #wrapper #content-wrapper {
-  background-color: #f8f9fc;
+  background-color: var(--body-bg);
   width: 100%;
   overflow-x: hidden;
 }
