@@ -41,7 +41,36 @@
     </div>
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active mb-3" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-info">
+                            <h5 class="page-title text-white">User Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input class="form-control" name="email" id="email" value="{{ adminUser.email }}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Username</label>
+                                <input class="form-control" name="username" id="username" value="{{ adminUser.username }}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input class="form-control" name="first_name" id="first_name" value="{{ adminUser.first_name }}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input class="form-control" name="last_name" id="last_name" value="{{ adminUser.last_name }}"/>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <btn class="btn btn-info float-right">Update User</btn>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="servers" role="tabpanel" aria-labelledby="servers-tab">
 
