@@ -1894,8 +1894,7 @@ pre code {
   opacity: 1;
 }
 
-.form-control:disabled, .form-control[readonly],
-.form-select:disabled, .form-select[readonly] {
+.form-control:disabled, .form-control[readonly] {
   background-color: var(--body-bg-alt);
   border-color: var(--body-bg-alt);
   opacity: 1;
@@ -3384,9 +3383,9 @@ input[type="button"].btn-block {
 }
 
 .form-select:disabled {
-  background-color: #eaecf4;
-  color: #6e707e;
-  border: 1px solid #d1d3e2;
+  background-color: var(--body-bg-alt);
+  color: var(--text-color);
+  border: 1px solid var(--body-bg-alt);
 }
 
 .input-group {
