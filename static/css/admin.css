@@ -3357,6 +3357,10 @@ input[type="button"].btn-block {
   pointer-events: none;
 }
 
+.form-select:disabled {
+  background-color: #eaecf4;
+}
+
 .input-group {
   position: relative;
   display: flex;
