@@ -50,23 +50,23 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="email">Email Address <small class="text-danger">required</small></label>
-                                <input class="form-control" name="email" id="email" value="{{ adminUser.email }}"/>
+                                <input class="form-control" name="email" id="email" value="{{ adminUser.email }}" {% if user == adminUser %}disabled="disabled"{% endif %}/>
                             </div>
                             <div class="form-group">
                                 <label for="email">Username <small class="text-danger">required</small></label>
-                                <input class="form-control" name="username" id="username" value="{{ adminUser.username }}"/>
+                                <input class="form-control" name="username" id="username" value="{{ adminUser.username }}"{% if user == adminUser %}disabled="disabled"{% endif %}/>
                             </div>
                             <div class="form-group">
                                 <label for="first_name">First Name <small class="text-danger">required</small></label>
-                                <input class="form-control" name="first_name" id="first_name" value="{{ adminUser.first_name }}"/>
+                                <input class="form-control" name="first_name" id="first_name" value="{{ adminUser.first_name }}"{% if user == adminUser %}disabled="disabled"{% endif %}/>
                             </div>
                             <div class="form-group">
                                 <label for="last_name">Last Name <small class="text-danger">required</small></label>
-                                <input class="form-control" name="last_name" id="last_name" value="{{ adminUser.last_name }}"/>
+                                <input class="form-control" name="last_name" id="last_name" value="{{ adminUser.last_name }}"{% if user == adminUser %}disabled="disabled"{% endif %}/>
                             </div>
                         </div>
                         <div class="card-footer bg-white">
-                            <button type="submit" name="update" class="btn btn-info float-right">Update User</button>
+                            <button type="submit" name="update" class="btn btn-info float-right" {% if user == adminUser %}disabled="disabled"{% endif %}>Update User</button>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input class="form-control" name="password" id="password" type="password"/>
+                                <input class="form-control" name="password" id="password" type="password" {% if user == adminUser %}disabled="disabled"{% endif %}/>
                                 <small>Leave blank to keep this user's password the same. User will not receive any notification if password is changed.</small>
                             </div>
                         </div>

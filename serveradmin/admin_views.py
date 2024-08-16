@@ -592,6 +592,9 @@ class AdminUserDetailView(LoginRequiredMixin, TemplateView):
                     context["error"] = context["error"] + f"<li>The \"" + field + "\" field is required.</li>"
             if started:
                 context["error"] = context["error"] + "</ul>"
+            if context["user"] == context["adminUser"]:
+                context["success"] = False
+                context["error"] = "You cannot edit your own account here. Please visit your account page to edit your own information."
             if not "error" in context:
                 user = context["adminUser"]
                 for field in fields:
