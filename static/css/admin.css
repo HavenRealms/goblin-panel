@@ -2358,6 +2358,17 @@ fieldset:disabled a.btn {
   pointer-events: none;
 }
 
+.btn-custom {
+  color: #fff;
+  background-color: var(--bg-primary);
+  border-color: var(--bg-primary);
+}
+
+.btn-custom:hover {
+  background-color: var(--bg-secondary);
+  background-color: var(--bg-secondary);
+}
+
 .btn-primary {
   color: #fff;
   background-color: #4e73df;
@@ -4498,9 +4509,9 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: var(--bg-color)!important;
   background-clip: border-box;
-  border: 1px solid #e3e6f0;
+  border: 1px solid var(--bg-color)!important;
   border-radius: 0.35rem;
 }
 
@@ -9780,8 +9791,8 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #e3e6f0;
   }
   .table .thead-dark th {
-    color: inherit;
-    border-color: #e3e6f0;
+    color: var(--bg-color)!important;
+    border-color: var(--bg-color)!important;
   }
 }
 
