@@ -9654,7 +9654,7 @@ a.text-light:hover, a.text-light:focus {
 }
 
 .text-dark {
-  color: #5a5c69 !important;
+  color: var(--text-color) !important;
 }
 
 a.text-dark:hover, a.text-dark:focus {
@@ -10834,6 +10834,10 @@ a:focus {
 
 p.page-header {
 	font-size: 0.8rem;
+}
+
+.card .card-header{
+  background: var(--bg-primary)!important;
 }
 
 .card .card-header .dropdown {
