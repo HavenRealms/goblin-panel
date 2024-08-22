@@ -321,6 +321,7 @@ class AdminHoardesView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["MENU"] = settings.ADMIN_MENU
         context["page_title"] = "Hoardes"
+        context["PROJECT_NAME"] = settings.NAME
         context["version"] = settings.VERSION
         context["user"] = self.request.user
         context["hoardes"] = Hoarde.objects.all()
