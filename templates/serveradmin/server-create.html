@@ -202,7 +202,37 @@
                 </div>
             </div>
         </div>
-
+        <div class="col-md-6">
+            <div class="card text-dark mb-3">
+                <div class="card-header">
+                    <h5 class="page-title text-white float-left">Nest Configuration</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="server-hoarde">Hoarde</label>
+                        <select class="form-select" id="server-hoarde" name="server-hoarde">
+                            {% for hoarde in hoardes %}
+                                <option value="{{ hoarde.id }}">{{ hoarde.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <small>Select the Hoarde that this server will use a gem from.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="server-gem">Gem</label>
+                        <select class="form-select" id="server-gem" name="server-gem">
+                        </select>
+                        <small>Select the Gem that will define how this server should operate.</small>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="skip-install" name="skip-install">
+                            <label class="form-check-label" for="skip-install">Skip Gem Install Script</label>
+                        </div>
+                        <small>If the selected Gem has an install script attached to it, the script will run during the install. If you would like to skip this step, toggle this option.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 {% endblock %}
