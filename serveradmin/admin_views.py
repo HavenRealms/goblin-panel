@@ -626,6 +626,18 @@ class AdminUserDetailView(LoginRequiredMixin, TemplateView):
 
         return self.render_to_response(context)
 
+class AdminServerCreateView(LoginRequiredMixin, TemplateView):
+    template_name = "serveradmin/server-create.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["MENU"] = settings.ADMIN_MENU
+        context["page_title"] = "Create Server"
+        context["PROJECT_NAME"] = settings.NAME
+        context["version"] = settings.VERSION
+        context["user"] = self.request.user
+        return context
+
 class AdminThemesView(LoginRequiredMixin, TemplateView):
     template_name = "serveradmin/themes.html"
 
