@@ -78,7 +78,7 @@
                                 <select class="form-select" id="server-node" name="server-node">
                                     {% for location in locations %}
                                         <optgroup label="{{ location.short_code }}">
-                                            {% for node in location.nodes.objects.all %}
+                                            {% for node in location.nodes.all %}
                                                 <option value="{{ node.id }}">{{ node.name }}</option>
                                             {% endfor %}
                                         </optgroup>
