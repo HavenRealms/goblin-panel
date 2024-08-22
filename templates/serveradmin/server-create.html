@@ -8,7 +8,7 @@
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="{% url 'admin-dashboard-home' %}">Admin Dashboard</a></li>
 				<li class="breadcrumb-item"><a href="{% url 'admin-servers' %}">Servers</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Create Hoarde</li>
+				<li class="breadcrumb-item active" aria-current="page">Create Server</li>
 			</ol>
 		</nav>
 	</div>
@@ -28,6 +28,43 @@
 </div>
 <form method="post" action="">
     {% csrf_token %}
-
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card text-dark mb-3">
+                <div class="card-header">
+                    <h5 class="page-title text-white float-left">Server Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="server-name">Server Name</label>
+                                <input class="form-control" id="server-name" name="server-name" placeholder="Server Name" />
+                                <small>Character limits: <span class="badge badge-secondary">a-z A-Z 0-9 _ - .</span> and <span class="badge badge-secondary">[Space]</span>.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="server-owner">Server Owner</label>
+                                <select class="form-select" id="server-owner" name="server-owner">
+                                    {% for user in users %}
+                                        <option value="{{ user.id }}">{% if user.first_name %}{{ user.first_name }} {{ user.last_name }}{% else %}{{ user.username }}{% endif %} ({{ user.email }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="server-description">Server Description</label>
+                                <textarea rows="3" id="server-description" name="server-description"></textarea>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="server-autostart" name="server-autostart">
+                                <label class="form-check-label" for="server-autostart">Start Server Once Installed</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 {% endblock %}

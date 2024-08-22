@@ -636,6 +636,7 @@ class AdminServerCreateView(LoginRequiredMixin, TemplateView):
         context["PROJECT_NAME"] = settings.NAME
         context["version"] = settings.VERSION
         context["user"] = self.request.user
+        context["users"] = User.objects.all()
         return context
 
 class AdminThemesView(LoginRequiredMixin, TemplateView):
