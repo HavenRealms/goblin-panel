@@ -637,7 +637,7 @@ class AdminServerCreateView(LoginRequiredMixin, TemplateView):
         context["version"] = settings.VERSION
         context["user"] = self.request.user
         context["users"] = User.objects.all()
-        context["nodes"] = Node.objects.filter(public=True)
+        context["locations"] = Location.objects.all()
         return context
 
 class AdminThemesView(LoginRequiredMixin, TemplateView):

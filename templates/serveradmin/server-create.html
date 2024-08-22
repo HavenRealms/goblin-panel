@@ -76,8 +76,12 @@
                             <div class="form-group">
                                 <label for="server-node">Node</label>
                                 <select class="form-select" id="server-node" name="server-node">
-                                    {% for node in nodes %}
-                                        <option value="{{ node.id }}">{{ node.name }}</option>
+                                    {% for location in locations %}
+                                        <optgroup label="{{ location.name }}">
+                                            {% for node in location.nodes.objects.all %}
+                                                <option value="{{ node.id }}">{{ node.name }}</option>
+                                            {% endfor %}
+                                        </optgroup>
                                     {% endfor %}
                                 </select>
                             </div>
