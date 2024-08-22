@@ -189,10 +189,18 @@
                                 <small><b>Advanced:</b> The IO performance of this server relative to other running containers on the system. Value should be between <span class="badge badge-secondary">10</span> and <span class="badge badge-secondary">1000</span>. Please see <a href="https://docs.docker.com/engine/reference/run/#block-io-bandwidth-blkio-constraint">this documentation</a> for more information about it.</small>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="oom-killer" name="oom-killer">
+                                <label class="form-check-label" for="oom-killer">Enable OOM Killer</label>
+                                <small>Terminates the server if it breaches the memory limits. Enabling OOM killer may cause server processes to exit unexpectedly.</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 </form>
 {% endblock %}
