@@ -286,6 +286,34 @@
 {% block footer_scripts %}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        const nodeSelect = document.getElementById("server-node");
+        const allocationSelect = document.getElementById("server-allocation");
+        const nodes = {{ nodes_data|safe }};
+
+        function updateAllocations() {
+            const nodeId = nodeSelect.value;
+
+            allocationSelect.innerHTML = "";
+
+            if(nodeId) {
+                const selectedNode = nodes.find(node => node.id == nodeId);
+                if(selectedNode && selectedNode.allocations) {
+                    selectedNode.allocations.foreach(allocation => {
+                        const option = document.createElement("option");
+                        option.value = allocation.id
+                        option.text = allocation.address + ":" + allocation.port;
+                        allocationSelect.appendChild(option)
+                    });
+                }
+            }
+        }
+
+        nodeSelect.addEventListener("change", updateAllocations);
+        updateAllocations();
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
         const hoardeSelect = document.getElementById("server-hoarde");
         const gemSelect = document.getElementById("server-gem");
         const imageSelect = document.getElementById("docker-image");
