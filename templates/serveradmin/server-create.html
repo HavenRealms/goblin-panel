@@ -290,7 +290,7 @@
         const gemSelect = document.getElementById("server-gem");
 
         // Extract hoardes and gems data from the template context
-        const hoardes = {{ hoardes|json_script:"hoardes-data" }};
+        const hoardes = {{ hoardes_data|json_script:"hoardes-data" }};
 
         hoardeSelect.addEventListener("change", function() {
             const hoardeId = hoardeSelect.value;

@@ -1,3 +1,4 @@
+from django.forms import model_to_dict
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, View
 from django.contrib.auth.models import User
@@ -638,7 +639,15 @@ class AdminServerCreateView(LoginRequiredMixin, TemplateView):
         context["user"] = self.request.user
         context["users"] = User.objects.all()
         context["locations"] = Location.objects.all()
-        context["hoardes"] = Hoarde.objects.prefetch_related("gem").all()
+        context["hoardes"] = Hoarde.objects.all()
+        context["hoardes_data"] = [
+            {
+                "id": hoarde.id,
+                "name": hoarde.name,
+                "gems": [{"id": gem.id, "name": gem.name} for gem in hoarde.gems.all()]
+            }
+            for hoarde in context["hoardes"]
+        ]
         return context
 
 class AdminThemesView(LoginRequiredMixin, TemplateView):
