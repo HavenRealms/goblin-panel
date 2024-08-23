@@ -12,7 +12,7 @@ from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
 import glob, ntpath
 from .models import *
-from json import dumps, loads
+import json
 
 # Create your views here.
 class AdminDashboard404View(LoginRequiredMixin, TemplateView):
@@ -186,7 +186,7 @@ class AdminNodeSettingsView(LoginRequiredMixin, TemplateView):
 
         # Check if required data is present
         if not name or not location or not address or not ssl or not proxy or not memory or not memory_over or not disk or not disk_over or not upload_max or not visible:
-            return HttpResponseBadRequest("Missing required fields: " + dumps(request.POST))
+            return HttpResponseBadRequest("Missing required fields: " + json.dumps(request.POST))
 
         if name == "" or location == "" or address == "" or memory == "" or memory_over == "" or disk == "" or disk_over == "" or upload_max == "":
             redirect("admin-node-detail", id=node.id)
@@ -279,7 +279,7 @@ class AdminNodeCreateView(LoginRequiredMixin, TemplateView):
 
         # Check if required data is present
         if not name or not location or not address or not ssl or not proxy or not memory or not memory_over or not disk or not disk_over or not upload_max or not visible:
-            return HttpResponseBadRequest("Missing required fields: " + dumps(request.POST))
+            return HttpResponseBadRequest("Missing required fields: " + json.dumps(request.POST))
 
         if name == "" or location == "" or address == "" or memory == "" or memory_over == "" or disk == "" or disk_over == "" or upload_max == "":
             redirect("admin-nodes")
@@ -334,7 +334,7 @@ class AdminHoardesView(LoginRequiredMixin, TemplateView):
             if "gem-file" in request.FILES:
                 if "hoarde" in request.POST:
                     gemFile = request.FILES.get("gem-file")
-                    gemJson = loads(gemFile.read())
+                    gemJson = json.loads(gemFile.read())
 
                     name = gemJson["name"]
                     hoardeID = int(request.POST.get("hoarde"))
@@ -418,7 +418,7 @@ class AdminHoardeDetailView(LoginRequiredMixin, TemplateView):
         context["gems"] = context["hoarde"].gems.all()
         for gem in context["gems"]:
             with open(gem.gem_file.path, "r") as f:
-                gemJson = loads(f.read())
+                gemJson = json.loads(f.read())
                 f.close()
                 setattr(gem, "json", gemJson)
 
@@ -476,12 +476,12 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
         context["version"] = settings.VERSION
         context["user"] = self.request.user
         with open(context["gem"].gem_file.path, "r") as f:
-            gemJson = loads(f.read())
+            gemJson = json.loads(f.read())
             f.close()
             setattr(context["gem"], "json", gemJson)
-            setattr(context["gem"], "files", dumps(loads(gemJson["config"]["files"]), indent=4))
-            setattr(context["gem"], "logs", dumps(loads(gemJson["config"]["logs"]), indent=4))
-            setattr(context["gem"], "startup", dumps(loads(gemJson["config"]["startup"]), indent=4))
+            setattr(context["gem"], "files", json.dumps(json.loads(gemJson["config"]["files"]), indent=4))
+            setattr(context["gem"], "logs", json.dumps(json.loads(gemJson["config"]["logs"]), indent=4))
+            setattr(context["gem"], "startup", json.dumps(json.loads(gemJson["config"]["startup"]), indent=4))
         return context
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -542,7 +542,7 @@ class AdminGemDetailView(LoginRequiredMixin, TemplateView):
                     saveRequired = True
             if saveRequired:
                 with open(context["gem"].gem_file.path, "w") as f:
-                    f.write(dumps(context["gem"].json, indent=4))
+                    f.write(json.dumps(context["gem"].json, indent=4))
                     f.close()
                 context["success"] = True
 
