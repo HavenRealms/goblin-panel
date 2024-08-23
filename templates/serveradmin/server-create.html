@@ -291,7 +291,7 @@
 
         // Retrieve the hoardes data from the script tag
         const hoardesScript = document.getElementById('hoardes-data');
-        const hoardes = JSON.parse({{ hoardes_json|safe }});
+        const hoardes = JSON.parse({{ hoardes_data|safe }});
 
         hoardeSelect.addEventListener("change", function() {
             const hoardeId = hoardeSelect.value;
