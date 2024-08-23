@@ -288,10 +288,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const hoardeSelect = document.getElementById("server-hoarde");
         const gemSelect = document.getElementById("server-gem");
-
-        // Retrieve the hoardes data from the script tag
-        const hoardesScript = document.getElementById('hoardes-data');
-        const hoardes = JSON.parse({{ hoardes_data|safe }});
+        const hoardes = {{ hoardes_data|safe }};
 
         hoardeSelect.addEventListener("change", function() {
             const hoardeId = hoardeSelect.value;
