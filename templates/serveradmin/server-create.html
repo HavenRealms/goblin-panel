@@ -330,7 +330,7 @@
                         Object.entries(selectedGem.docker_images).forEach(([imageName, imageValue]) => {
                             const option = document.createElement("option");
                             option.value = imageValue;
-                            option.textContent = imageName;
+                            option.textContent = imageName + "(" + imageValue + ")";
                             imageSelect.appendChild(option);
                         });
                     }
