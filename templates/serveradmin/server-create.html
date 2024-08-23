@@ -284,9 +284,6 @@
 {% endblock %}
 
 {% block footer_scripts %}
-<script id="hoardes-data" type="application/json">
-    {{ hoardes_json|safe }}
-</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const hoardeSelect = document.getElementById("server-hoarde");
@@ -294,7 +291,7 @@
 
         // Retrieve the hoardes data from the script tag
         const hoardesScript = document.getElementById('hoardes-data');
-        const hoardes = JSON.parse(hoardesScript.textContent);
+        const hoardes = JSON.parse({{ hoardes_json|safe }});
 
         hoardeSelect.addEventListener("change", function() {
             const hoardeId = hoardeSelect.value;
