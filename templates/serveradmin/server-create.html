@@ -282,3 +282,35 @@
     </div>
 </form>
 {% endblock %}
+
+{% block footer_scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const hoardeSelect = document.getElementById("server-hoarde");
+        const gemSelect = document.getElementById("server-gem");
+
+        // Extract hoardes and gems data from the template context
+        const hoardes = {{ hoardes|json_script:"hoardes-data" }};
+
+        hoardeSelect.addEventListener("change", function() {
+            const hoardeId = hoardeSelect.value;
+
+            // Clear previous gem options
+            gemSelect.innerHTML = "";
+
+            if (hoardeId) {
+                // Find the selected hoarde and update the gem options
+                const selectedHoarde = hoardes.find(hoarde => hoarde.id == hoardeId);
+                if (selectedHoarde && selectedHoarde.gems) {
+                    selectedHoarde.gems.forEach(gem => {
+                        const option = document.createElement("option");
+                        option.value = gem.id;
+                        option.textContent = gem.name;
+                        gemSelect.appendChild(option);
+                    });
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
