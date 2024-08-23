@@ -644,10 +644,18 @@ class AdminServerCreateView(LoginRequiredMixin, TemplateView):
             {
                 "id": hoarde.id,
                 "name": hoarde.name,
-                "gems": [{"id": gem.id, "name": gem.name} for gem in hoarde.gems.all()]
+                "gems": [
+                    {
+                        "id": gem.id,
+                        "name": gem.name,
+                        "docker_images": json.load(open(gem.gem_file))["docker_images"]
+                    }
+                    for gem in hoarde.gems.all()
+                ]
             }
             for hoarde in context["hoardes"]
         ]
+
         return context
 
 class AdminThemesView(LoginRequiredMixin, TemplateView):
