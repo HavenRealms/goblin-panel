@@ -290,7 +290,7 @@
         const gemSelect = document.getElementById("server-gem");
         const hoardes = {{ hoardes_data|safe }};
 
-        hoardeSelect.addEventListener("change", function() {
+        function updateGems() {
             const hoardeId = hoardeSelect.value;
 
             // Clear previous gem options
@@ -308,7 +308,13 @@
                     });
                 }
             }
-        });
+        }
+
+        // Set up the event listener
+        hoardeSelect.addEventListener("change", updateGems);
+
+        // Trigger the change event when the page first loads
+        updateGems();
     });
 </script>
 {% endblock %}
