@@ -233,6 +233,50 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="card text-dark mb-3">
+                <div class="card-header">
+                    <h5 class="page-title text-white float-left">Docker Configuration</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="docker-image">Docker Image</label>
+                        <select class="form-select" id="docker-image" name="docker-image">
+                            <option>Java 21 (git.io/parkervcp/java21)</option>
+                        </select>
+                        <input class="form-control" id="custom-docker-image" name="custom-docker-image" placeholder="Custom Image..." />
+                        <small>This is the default Docker image that will be used to run this server. Select an image from the dropdown above, or enter a custom image in the text field above.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card text-dark mb-3">
+                <div class="card-header">
+                    <h5 class="page-title text-white float-left">Startup Configuration</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="startup-command">Startup Command</label>
+                        <input class="form-control" name="startup-command" id="startup-command" />
+                        <small>The following data substitutes are available for the startup command: <span class="badge badge-secondary">{{SERVER_MEMORY}}</span>, <span class="badge badge-secondary">{{SERVER_IP}}</span>, and <span class="badge badge-secondary">{{SERVER_PORT}}</span>. They will be replaced with the allocated memory, server IP, and server port respectively.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card text-dark mb-3">
+                <div class="card-header">
+                    <h5 class="page-title text-white float-left">Service Variables</h5>
+                </div>
+                <div class="card-body">
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" name="create" class="btn btn-info float-right">Create Server</button>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 {% endblock %}
