@@ -288,6 +288,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const hoardeSelect = document.getElementById("server-hoarde");
         const gemSelect = document.getElementById("server-gem");
+        const imageSelect = document.getElementById("docker-image");
         const hoardes = {{ hoardes_data|safe }};
 
         function updateGems() {
@@ -295,6 +296,7 @@
 
             // Clear previous gem options
             gemSelect.innerHTML = "";
+            imageSelect.innerHTML = "";  // Clear docker images when hoarde changes
 
             if (hoardeId) {
                 // Find the selected hoarde and update the gem options
@@ -306,15 +308,43 @@
                         option.textContent = gem.name;
                         gemSelect.appendChild(option);
                     });
+
+                    // Trigger gem change to update docker images
+                    updateImages();
                 }
             }
         }
 
-        // Set up the event listener
+        function updateImages() {
+            const gemId = gemSelect.value;
+
+            // Clear previous docker image options
+            imageSelect.innerHTML = "";
+
+            if (gemId) {
+                // Find the selected gem and update the docker image options
+                const selectedHoarde = hoardes.find(hoarde => hoarde.id == hoardeSelect.value);
+                if (selectedHoarde && selectedHoarde.gems) {
+                    const selectedGem = selectedHoarde.gems.find(gem => gem.id == gemId);
+                    if (selectedGem && selectedGem.docker_images) {
+                        Object.entries(selectedGem.docker_images).forEach(([imageName, imageValue]) => {
+                            const option = document.createElement("option");
+                            option.value = imageValue;
+                            option.textContent = imageName;
+                            imageSelect.appendChild(option);
+                        });
+                    }
+                }
+            }
+        }
+
+        // Set up the event listeners
         hoardeSelect.addEventListener("change", updateGems);
+        gemSelect.addEventListener("change", updateImages);
 
         // Trigger the change event when the page first loads
         updateGems();
+        updateImages();
     });
 </script>
 {% endblock %}
