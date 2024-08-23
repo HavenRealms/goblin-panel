@@ -284,13 +284,18 @@
 {% endblock %}
 
 {% block footer_scripts %}
+<script id="hoardes-data" type="application/json">
+    {{ hoardes_json|safe }}
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const hoardeSelect = document.getElementById("server-hoarde");
         const gemSelect = document.getElementById("server-gem");
 
-        // Extract hoardes and gems data from the template context
-        const hoardes = {{ hoardes_data|json_script:"hoardes-data" }};
+        // Retrieve the hoardes data from the script tag
+        const hoardesScript = document.getElementById('hoardes-data');
+        const hoardes = JSON.parse(hoardesScript.textContent);
+
         hoardeSelect.addEventListener("change", function() {
             const hoardeId = hoardeSelect.value;
 
