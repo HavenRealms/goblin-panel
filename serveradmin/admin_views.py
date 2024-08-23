@@ -648,7 +648,7 @@ class AdminServerCreateView(LoginRequiredMixin, TemplateView):
                     {
                         "id": gem.id,
                         "name": gem.name,
-                        "docker_images": json.load(gem.gem_file.open())["docker_images"]
+                        "docker_images": json.load(gem.gem_file.open())["docker_images"].reverse()
                     }
                     for gem in hoarde.gems.all()
                 ]
