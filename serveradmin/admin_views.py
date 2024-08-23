@@ -640,28 +640,20 @@ class AdminServerCreateView(LoginRequiredMixin, TemplateView):
         context["users"] = User.objects.all()
         context["locations"] = Location.objects.all()
         context["hoardes"] = Hoarde.objects.all()
-        context["locations_data"] = [
+        context["nodes_data"] = [
             {
-                "id": location.id,
-                "short_code": location.short_code,
-                "description": location.description,
-                "nodes": [
+                "id": node.id,
+                "name": node.name,
+                "allocations": [
                     {
-                        "id": node.id,
-                        "name": node.name,
-                        "allocations": [
-                            {
-                                "id": allocation.id,
-                                "ip": allocation.address,
-                                "port": allocation.port
-                            }
-                            for allocation in node.allocations.all()
-                        ]
+                        "id": allocation.id,
+                        "ip": allocation.address,
+                        "port": allocation.port
                     }
-                    for node in location.nodes.all()
+                    for allocation in node.allocations.all()
                 ]
             }
-            for location in context["locations"]
+            for node in Node.objects.filter(public=True)
         ]
         context["hoardes_data"] = [
             {
