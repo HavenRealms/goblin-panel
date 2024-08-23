@@ -261,7 +261,7 @@
                     <div class="form-group">
                         <label for="startup-command">Startup Command</label>
                         <input class="form-control" name="startup-command" id="startup-command" />
-                        <small>The following data substitutes are available for the startup command: <span class="badge badge-secondary">{{SERVER_MEMORY}}</span>, <span class="badge badge-secondary">{{SERVER_IP}}</span>, and <span class="badge badge-secondary">{{SERVER_PORT}}</span>. They will be replaced with the allocated memory, server IP, and server port respectively.</small>
+                        <small>The following data substitutes are available for the startup command: {% verbatim %}<span class="badge badge-secondary">{{SERVER_MEMORY}}</span>, <span class="badge badge-secondary">{{SERVER_IP}}</span>, and <span class="badge badge-secondary">{{SERVER_PORT}}</span>. They will be replaced with the allocated memory, server IP, and server port respectively.{% endverbatim %}</small>
                     </div>
                 </div>
             </div>
