@@ -638,7 +638,7 @@ class AdminServerCreateView(LoginRequiredMixin, TemplateView):
         context["user"] = self.request.user
         context["users"] = User.objects.all()
         context["locations"] = Location.objects.all()
-        context["hoardes"] = Hoarde.objects.all()
+        context["hoardes"] = Hoarde.objects.prefetch_related("gem").all()
         return context
 
 class AdminThemesView(LoginRequiredMixin, TemplateView):
